@@ -19,5 +19,11 @@
   "bugs": {
     "url": "https://github.com/sgillespie/beer-recipe-adapter/issues"
   },
-  "homepage": "https://github.com/sgillespie/beer-recipe-adapter#readme"
+  "homepage": "https://github.com/sgillespie/beer-recipe-adapter#readme",
+  "dependencies": {
+    "react": "^0.13.3",
+    "react-redux": "^2.1.2",
+    "redux": "^3.0.0",
+    "redux-thunk": "^1.0.0"
+  }
 }

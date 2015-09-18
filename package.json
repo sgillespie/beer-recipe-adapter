@@ -1,0 +1,23 @@
+{
+  "name": "beer-recipe-adapter",
+  "version": "0.0.1",
+  "description": "Adapt any beer recipe to your needs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sean Gillespie",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sgillespie/beer-recipe-adapter.git"
+  },
+  "keywords": [
+    "homebrew",
+    "recipe"
+  ],
+  "bugs": {
+    "url": "https://github.com/sgillespie/beer-recipe-adapter/issues"
+  },
+  "homepage": "https://github.com/sgillespie/beer-recipe-adapter#readme"
+}

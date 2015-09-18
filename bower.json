@@ -1,0 +1,21 @@
+{
+  "name": "beer-recipe-adapter",
+  "version": "0.0.1",
+  "authors": [
+    "Sean Gillespie <sean@mistersg.net>"
+  ],
+  "description": "Adapt any beer recipe to your needs",
+  "main": "index.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "jquery": "~2.1.4"
+  }
+}

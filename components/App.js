@@ -87,16 +87,6 @@ var AdjustedRecipePanel = React.createClass({
 
 var GrainList = React.createClass({
   render: function () {
-    var items = [
-      {
-        key: 1,
-        type: 'Two Row (US)',
-        weightLbs: '12',
-        weightOz: '2',
-        percent: '91',
-      }
-    ];
-
     var grains = this.props.grains.map(function (grain) {
       return <GrainItem key={grain.key}
                         grainType={grain.type}

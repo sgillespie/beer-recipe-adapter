@@ -122,10 +122,10 @@ var GrainItem = React.createClass({
           <td>{this.props.weightLbs}/{this.props.weightOz}</td>
           <td>{this.props.percent}%</td>
           <td className="text-right">
-          <bootstrap.Button>
-            <bootstrap.Glyphicon glyph="remove" />
-          </bootstrap.Button>
-        </td>
+            <bootstrap.Button>
+              <bootstrap.Glyphicon glyph="remove" />
+            </bootstrap.Button>
+          </td>
         </tr>
     );
   }
@@ -154,14 +154,14 @@ var GrainInput = React.createClass({
                                addonAfter="oz"/>
             </bootstrap.Col>
 
-            <div className="text-right buttons-right">
+            <bootstrap.Col xs={4}>
               <bootstrap.Button>
                 <bootstrap.Glyphicon glyph="ok"/>
               </bootstrap.Button>
               <bootstrap.Button>
                 <bootstrap.Glyphicon glyph="remove"/>
               </bootstrap.Button>
-            </div>
+            </bootstrap.Col>
           </bootstrap.Row>
         </form>
     );

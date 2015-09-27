@@ -168,41 +168,6 @@ var GrainInput = React.createClass({
   }
 })
 
-var grains = [
-  {
-    key: 1,
-    type: 'Two Row (US)',
-    weightLbs: '12',
-    weightOz: '2',
-    percent: '91',
-  },
-  {
-    key: 2,
-    type: 'Crystal 40L',
-    weightLbs: '1',
-    weightOz: '0',
-    percent: '7',
-  },
-  {
-    key: 3,
-    type: 'Munich',
-    weightLbs: '0',
-    weightOz: '6',
-    percent: '1',
-  },
-];
-
-var RecipeApp = React.createClass({
-  render: function () {
-    return (
-        <div>
-          <NavBar/>
-          <AdjustableRecipe grains={grains}/>
-        </div>
-    );
-  }
-});
-
 module.exports = {
   NavBar: NavBar,
   AdjustableRecipe: AdjustableRecipe,

@@ -203,4 +203,7 @@ var RecipeApp = React.createClass({
   }
 });
 
-module.exports = RecipeApp
+module.exports = {
+  NavBar: NavBar,
+  AdjustableRecipe: AdjustableRecipe,
+}

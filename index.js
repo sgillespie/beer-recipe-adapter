@@ -1,4 +1,4 @@
-var RecipeApp = require('./components/App'),
+var RecipeApp = require('./containers/App'),
     React = require('react'),
     redux = require('react-redux')
 

@@ -1,13 +1,16 @@
 var _ = require('lodash')
 
 var exampleState = {
-  grains: [
-    {
-      id: 1,
-      type: 'Two Row (US)',
-      weight: 12.125,
-    }
-  ],
+  result: [1],
+  entities: {
+    grains: {
+      1: {
+        id: 1,
+        type: 'Two Row (US)',
+        weight: 12.125,
+      }
+    },
+  },
 };
 
 var initialState = exampleState;

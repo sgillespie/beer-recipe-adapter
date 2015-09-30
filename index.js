@@ -4,25 +4,26 @@ var RecipeApp = require('./containers/App'),
     store = require('./store')
 
 var state = {
-  grains: [
-    {
-      id: 1,
-      type: 'Two Row (US)',
-      weight: 12.125,
+  result: [1, 2, 3],
+  entities: {
+    grains: {
+      1: {
+        id: 1,
+        type: 'Two Row (US)',
+        weight: 12.125,
+      },
+      2: {
+        id: 2,
+        type: 'Crystal 40L',
+        weight: 0.5,
+      },
+      3: {
+        id: 3,
+        type: 'Munich',
+        weight: 0.125,
+      },
     },
-    {
-      id: 2,
-      type: 'Crystal 40L',
-      weight: 0.5,
-      weightOz: '0',
-      percent: '7',
-    },
-    {
-      id: 3,
-      type: 'Munich',
-      weight: 0.125,
-    },
-  ],
+  },
 };
 
 var recipeStore = store(state);

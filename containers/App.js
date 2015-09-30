@@ -24,7 +24,9 @@ var RecipeApp = React.createClass({
 
 function select (state) {
   return {
-    grains: state.grains
+    grains: state.result.map(function (id) {
+      return state.entities.grains[id];
+    })
   };
 };
 

@@ -2,8 +2,10 @@ module.exports = {
   addGrain: function (grainType, weight) {
     return {
       type: 'ADD_GRAIN',
-      grainType: grainType,
-      weight: weight,
+      payload: {
+        type: grainType,
+        weight: weight,
+      },
     }
   }
 }

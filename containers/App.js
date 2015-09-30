@@ -1,4 +1,5 @@
-var bootstrap = require('react-bootstrap'),
+var actions = require('../actions/recipe'),
+    bootstrap = require('react-bootstrap'),
     components = require('../components'),
     React = require('react'),
     redux = require('react-redux');
@@ -10,7 +11,10 @@ var RecipeApp = React.createClass({
   },
   
   render: function () {
-    var onAddClick = function () {
+    var dispatch = this.props.dispatch
+    
+    var onAddClick = function (grainType, weight) {
+      dispatch(actions.addGrain(grainType, weight))
     };
 
     return (

@@ -22,17 +22,23 @@ function recipeApp (state, action) {
 
   switch (action.type) {
     case 'ADD_GRAIN':
+      var id = 1 + _.reduce(state.entities.grains, function (accum, val, key) {
+        return Math.max(key, accum)
+      }, -1);
+
+      var grains = {};
+      grains[id] = {
+        id: id,
+        type: action.payload.type,
+        weight: action.payload.weight,
+      };
+    
       return _.assign({}, state, {
-        grains: state.grains.concat([
-          {
-            id: (state.reduce(function (accum, grain) {
-              return Math.max(grain.id, maxId)
-            }, -1) + 1),
-            grainType: grain.grainType,
-            weight: grain.weight,
-          },
-        ])
-      })
+        result: state.result.concat([id]),
+        entities: _.assign({}, state.entities, {
+          grains: _.assign({}, state.entities.grains, grains)
+        })
+      });
 
     default:
       return state;

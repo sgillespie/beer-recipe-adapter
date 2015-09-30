@@ -10,12 +10,17 @@ var NavBar = React.createClass({
 });
 
 var AdjustableRecipe = React.createClass({
+  propTypes: {
+    grains: React.PropTypes.array.isRequired,
+    onAddClick: React.PropTypes.func.isRequired,
+  },
+  
   render: function () {
     return (
         <div className="container">
           <AdjustableRecipeHeader/>
           <RecipeTargets/>
-          <OriginalRecipePanel grains={this.props.grains}/>
+          <OriginalRecipePanel grains={this.props.grains} onAddClick={this.props.onAddClick}/>
           <AdjustedRecipePanel grains={this.props.grains}/>
         </div>
     );
@@ -61,19 +66,28 @@ var RecipeTargets = React.createClass({
 });
 
 var OriginalRecipePanel = React.createClass({
+  propTypes: {
+    grains: React.PropTypes.array.isRequired,
+    onAddClick: React.PropTypes.func.isRequired,
+  },
+  
   render: function () {
     var header = (<h4>Original Grain Bill</h4>);
     
     return (
         <bootstrap.Panel header={header} bsStyle="primary">
           <GrainList grains={this.props.grains}/>
-          <GrainInput/>
+          <GrainInput onAddClick={this.props.onAddClick}/>
         </bootstrap.Panel>
     );
   }
 });
 
 var AdjustedRecipePanel = React.createClass({
+  propTypes: {
+    grains: React.PropTypes.array.isRequired,
+  },
+  
   render: function () {
     var header = (<h4>Adjusted Grain Bill</h4>);
     
@@ -86,13 +100,20 @@ var AdjustedRecipePanel = React.createClass({
 });
 
 var GrainList = React.createClass({
+  propTypes: {
+    grains: React.PropTypes.array.isRequired,
+  },
+  
   render: function () {
+    var totalWeight = this.props.grains.reduce(function (accum, grain) {
+      return accum + grain.weight
+    }, 0);
+    
     var grains = this.props.grains.map(function (grain) {
-      return <GrainItem key={grain.key}
-                        grainType={grain.type}
-                        weightLbs={grain.weightLbs}
-                        weightOz={grain.weightOz}
-                        percent={grain.percent} />
+      return <GrainItem key={grain.id}
+                        type={grain.type}
+                        weight={grain.weight}
+                        percentage={grain.weight / totalWeight} />
     }.bind(this));
 
     return (
@@ -115,12 +136,21 @@ var GrainList = React.createClass({
 });
 
 var GrainItem = React.createClass({
+  propTypes: {
+    type: React.PropTypes.string.isRequired,
+    weight: React.PropTypes.number.isRequired,
+    percentage: React.PropTypes.number.isRequired,
+  },
+  
   render: function () {
+    var lbs = Math.floor(this.props.weight),
+        oz = (this.props.weight - lbs) * 16
+    
     return (
         <tr>
-          <td>{this.props.grainType}</td>
-          <td>{this.props.weightLbs}/{this.props.weightOz}</td>
-          <td>{this.props.percent}%</td>
+          <td>{this.props.type}</td>
+          <td>{lbs}/{oz}</td>
+          <td>{(this.props.percentage * 100).toFixed(1)}%</td>
           <td className="text-right">
             <bootstrap.Button>
               <bootstrap.Glyphicon glyph="remove" />
@@ -132,6 +162,23 @@ var GrainItem = React.createClass({
 })
 
 var GrainInput = React.createClass({
+  propTypes: {
+    onAddClick: React.PropTypes.func.isRequired,
+  },
+  
+  onAddClick: function (e) {
+    var grainType = this.refs.grainTypeInput.getValue(),
+        inputLbs = this.refs.weightLbsInput.getValue(),
+        inputOz = this.refs.weightOzInput.getValue(),
+        
+        lbs = parseInt(inputLbs, 10),
+        oz = parseInt(inputOz, 10),
+
+        weight = lbs + (oz/16)
+
+    this.props.onAddClick(grainType, weight)
+  },
+
   render: function () {
     return (
         <form>
@@ -142,7 +189,7 @@ var GrainInput = React.createClass({
                                ref="grainTypeInput"/>
             </bootstrap.Col>
             <bootstrap.Col xs={2}>
-              <bootstrap.Input type="text"
+              <bootstrap.Input type="string"
                                placeholder="Weight (Lbs)"
                                ref="weightLbsInput"
                                addonAfter="lbs"/>
@@ -155,10 +202,10 @@ var GrainInput = React.createClass({
             </bootstrap.Col>
 
             <bootstrap.Col xs={4}>
-              <bootstrap.Button>
+              <bootstrap.Button onClick={this.onAddClick}>
                 <bootstrap.Glyphicon glyph="ok"/>
               </bootstrap.Button>
-              <bootstrap.Button>
+                <bootstrap.Button type="reset">
                 <bootstrap.Glyphicon glyph="remove"/>
               </bootstrap.Button>
             </bootstrap.Col>

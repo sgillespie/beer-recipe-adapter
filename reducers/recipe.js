@@ -4,7 +4,7 @@ var exampleState = {
   grains: [
     {
       id: 1,
-      grainType: 'Two Row (US)',
+      type: 'Two Row (US)',
       weight: 12.125,
     }
   ],
@@ -18,7 +18,7 @@ function recipeApp (state, action) {
   }
 
   switch (action.type) {
-    case ADD_GRAIN:
+    case 'ADD_GRAIN':
       return _.assign({}, state, {
         grains: state.grains.concat([
           {

@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/sgillespie/beer-recipe-adapter#readme",
   "dependencies": {
+    "lodash": "^3.10.1",
     "react": "^0.13.3",
     "react-bootstrap": "^0.25.2",
     "react-redux": "^2.1.2",

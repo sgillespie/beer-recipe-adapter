@@ -1,30 +1,7 @@
-var components = require('../components'),
+var bootstrap = require('react-bootstrap'),
+    components = require('../components'),
     React = require('react'),
-    bootstrap = require('react-bootstrap')
-
-var grains = [
-  {
-    key: 1,
-    type: 'Two Row (US)',
-    weightLbs: '12',
-    weightOz: '2',
-    percent: '91',
-  },
-  {
-    key: 2,
-    type: 'Crystal 40L',
-    weightLbs: '1',
-    weightOz: '0',
-    percent: '7',
-  },
-  {
-    key: 3,
-    type: 'Munich',
-    weightLbs: '0',
-    weightOz: '6',
-    percent: '1',
-  },
-];
+    redux = require('react-redux');
 
 var RecipeApp = React.createClass({
   propTypes: {
@@ -33,13 +10,22 @@ var RecipeApp = React.createClass({
   },
   
   render: function () {
+    var onAddClick = function () {
+    };
+
     return (
         <div>
           <components.NavBar/>
-          <components.AdjustableRecipe grains={grains}/>
+          <components.AdjustableRecipe grains={this.props.grains} onAddClick={onAddClick}/>
         </div>
     );
   }
 });
 
-module.exports = RecipeApp
+function select (state) {
+  return {
+    grains: state.grains
+  };
+};
+
+module.exports = redux.connect(select)(RecipeApp)

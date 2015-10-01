@@ -20,29 +20,45 @@ function recipeApp (state, action) {
     return initialState;
   }
 
+  var _entities = entities(state.entities, action)
+  return {
+    result: _.map(_entities.grains, function (val, key) { return key; }),
+    entities: _entities,
+  }
+}
+
+function entities (state, action) {
+  return _.assign({}, state, {
+    grains: grains(state.grains, action),
+  });
+}
+
+function grains (state, action) {
   switch (action.type) {
     case 'ADD_GRAIN':
-      var id = 1 + _.reduce(state.entities.grains, function (accum, val, key) {
-        return Math.max(key, accum)
-      }, -1);
-
-      var grains = {};
-      grains[id] = {
-        id: id,
-        type: action.payload.type,
-        weight: action.payload.weight,
-      };
-    
-      return _.assign({}, state, {
-        result: state.result.concat([id]),
-        entities: _.assign({}, state.entities, {
-          grains: _.assign({}, state.entities.grains, grains)
-        })
-      });
-
+      
     default:
       return state;
   }
+}
+
+function addGrain (state, action) {
+  var id = newId(state),
+      grains = {};
+  
+  grains[id] = {
+    id: id,
+    type: action.payload.type,
+    weight: action.payload.weight,
+  };
+  
+  return _.assign({}, state, grains);
+}
+
+function newId(state) {
+  return 1 + _.reduce(state, function (accum, val, key) {
+    return Math.max(key, accum)
+  }, -1)
 }
 
 module.exports = recipeApp

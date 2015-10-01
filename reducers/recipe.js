@@ -36,7 +36,7 @@ function entities (state, action) {
 function grains (state, action) {
   switch (action.type) {
     case 'ADD_GRAIN':
-      
+     return addGrain (state, action);
     default:
       return state;
   }

@@ -7,5 +7,14 @@ module.exports = {
         weight: weight,
       },
     }
-  }
-}
+  },
+
+  deleteGrain: function (id) {
+    return {
+      type: 'DELETE_GRAIN',
+      payload: {
+        id: id,
+      },
+    };
+  },
+};

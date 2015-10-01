@@ -34,9 +34,13 @@ function entities (state, action) {
 }
 
 function grains (state, action) {
+  console.log(JSON.stringify(state));
+  
   switch (action.type) {
     case 'ADD_GRAIN':
-     return addGrain (state, action);
+      return addGrain (state, action);
+    case 'DELETE_GRAIN':
+      return deleteGrain(state, action);
     default:
       return state;
   }
@@ -53,6 +57,11 @@ function addGrain (state, action) {
   };
   
   return _.assign({}, state, grains);
+}
+
+function deleteGrain (state, action) {
+  var id = action.payload.id;
+  return _.omit(state, id)
 }
 
 function newId(state) {

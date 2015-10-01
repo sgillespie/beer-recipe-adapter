@@ -13,6 +13,7 @@ var AdjustableRecipe = React.createClass({
   propTypes: {
     grains: React.PropTypes.array.isRequired,
     onAddClick: React.PropTypes.func.isRequired,
+    onDeleteClick: React.PropTypes.func.isRequired,
   },
   
   render: function () {
@@ -20,7 +21,10 @@ var AdjustableRecipe = React.createClass({
         <div className="container">
           <AdjustableRecipeHeader/>
           <RecipeTargets/>
-          <OriginalRecipePanel grains={this.props.grains} onAddClick={this.props.onAddClick}/>
+          <OriginalRecipePanel grains={this.props.grains}
+                               onAddClick={this.props.onAddClick}
+                               onDeleteClick={this.props.onDeleteClick} />
+
           <AdjustedRecipePanel grains={this.props.grains}/>
         </div>
     );
@@ -69,6 +73,7 @@ var OriginalRecipePanel = React.createClass({
   propTypes: {
     grains: React.PropTypes.array.isRequired,
     onAddClick: React.PropTypes.func.isRequired,
+    onDeleteClick: React.PropTypes.func.isRequired,
   },
   
   render: function () {
@@ -76,8 +81,10 @@ var OriginalRecipePanel = React.createClass({
     
     return (
         <bootstrap.Panel header={header} bsStyle="primary">
-          <GrainList grains={this.props.grains}/>
-          <GrainInput onAddClick={this.props.onAddClick}/>
+          <GrainList grains={this.props.grains}
+                     onDeleteClick={this.props.onDeleteClick} />
+
+          <GrainInput onAddClick={this.props.onAddClick} />
         </bootstrap.Panel>
     );
   }
@@ -102,6 +109,7 @@ var AdjustedRecipePanel = React.createClass({
 var GrainList = React.createClass({
   propTypes: {
     grains: React.PropTypes.array.isRequired,
+    onDeleteClick: React.PropTypes.func.isRequired,
   },
   
   render: function () {
@@ -111,9 +119,12 @@ var GrainList = React.createClass({
     
     var grains = this.props.grains.map(function (grain) {
       return <GrainItem key={grain.id}
+                        grain={grain}
+                        id={grain.id}
                         type={grain.type}
                         weight={grain.weight}
-                        percentage={grain.weight / totalWeight} />
+                        percentage={grain.weight / totalWeight}
+                        onDeleteClick={this.props.onDeleteClick} />
     }.bind(this));
 
     return (
@@ -137,22 +148,28 @@ var GrainList = React.createClass({
 
 var GrainItem = React.createClass({
   propTypes: {
-    type: React.PropTypes.string.isRequired,
-    weight: React.PropTypes.number.isRequired,
+    grain: React.PropTypes.shape({
+      type: React.PropTypes.string.isRequired,
+      weight: React.PropTypes.number.isRequired,
+    }).isRequired,
     percentage: React.PropTypes.number.isRequired,
+  },
+
+  onDeleteClick: function (e) {
+    this.props.onDeleteClick(this.props.grain.id);
   },
   
   render: function () {
-    var lbs = Math.floor(this.props.weight),
-        oz = (this.props.weight - lbs) * 16
+    var lbs = Math.floor(this.props.grain.weight),
+        oz = (this.props.grain.weight - lbs) * 16
     
     return (
         <tr>
-          <td>{this.props.type}</td>
+          <td>{this.props.grain.type}</td>
           <td>{lbs}/{oz}</td>
           <td>{(this.props.percentage * 100).toFixed(1)}%</td>
           <td className="text-right">
-            <bootstrap.Button>
+          <bootstrap.Button onClick={this.onDeleteClick}>
               <bootstrap.Glyphicon glyph="remove" />
             </bootstrap.Button>
           </td>

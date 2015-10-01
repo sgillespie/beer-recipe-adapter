@@ -17,10 +17,16 @@ var RecipeApp = React.createClass({
       dispatch(actions.addGrain(grainType, weight))
     };
 
+    var onDeleteClick = function (id) {
+      dispatch(actions.deleteGrain(id))
+    };
+
     return (
         <div>
           <components.NavBar/>
-          <components.AdjustableRecipe grains={this.props.grains} onAddClick={onAddClick}/>
+          <components.AdjustableRecipe grains={this.props.grains}
+                                       onAddClick={onAddClick}
+                                       onDeleteClick={onDeleteClick} />
         </div>
     );
   }

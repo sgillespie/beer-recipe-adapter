@@ -54,7 +54,7 @@ function addGrain (state, action) {
     weight: action.payload.weight,
   };
 
-  return _.assign({}, state, grains);
+  return _.assign({}, state, _grains);
 }
 
 function deleteGrain (state, action) {

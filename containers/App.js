@@ -1,5 +1,6 @@
 const actions = require('../actions/recipe'),
-      components = require('../components'),
+      AdjustableRecipe = require('../components/AdjustableRecipe'),
+      NavBar = require('../components/NavBar'),
       React = require('react'),
       redux = require('react-redux');
 
@@ -22,10 +23,10 @@ const RecipeApp = React.createClass({
 
     return (
         <div>
-          <components.NavBar/>
-          <components.AdjustableRecipe grains={this.props.grains}
-                                       onAddClick={onAddClick}
-                                       onDeleteClick={onDeleteClick} />
+          <NavBar/>
+          <AdjustableRecipe grains={this.props.grains}
+                            onAddClick={onAddClick}
+                            onDeleteClick={onDeleteClick} />
         </div>
     );
   },

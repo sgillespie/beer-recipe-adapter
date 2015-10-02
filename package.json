@@ -6,6 +6,7 @@
   "scripts": {
     "browserify": "./node_modules/browserify/bin/cmd.js -t reactify -t babelify index.js -o bundle.js",
     "watchify": "./node_modules/watchify/bin/cmd.js -t reactify -b babelify index.js -o bundle.js",
+    "lint": "./node_modules/eslint/bin/eslint.js .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Sean Gillespie",
@@ -24,6 +25,7 @@
   "homepage": "https://github.com/sgillespie/beer-recipe-adapter#readme",
   "dependencies": {
     "babelify": "^6.3.0",
+    "eslint": "^1.5.1",
     "lodash": "^3.10.1",
     "react": "^0.13.3",
     "react-bootstrap": "^0.25.2",
@@ -34,6 +36,10 @@
     "watchify": "^3.4.0"
   },
   "devDependencies": {
+    "babel-eslint": "^4.1.3",
+    "eslint": "^1.5.1",
+    "eslint-config-airbnb": "^0.1.0",
+    "eslint-plugin-react": "^3.5.1",
     "reactify": "^1.1.1"
   }
 }

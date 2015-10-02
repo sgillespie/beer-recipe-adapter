@@ -6,7 +6,7 @@ module.exports = {
         type: grainType,
         weight: weight,
       },
-    }
+    };
   },
 
   deleteGrain: function (id) {

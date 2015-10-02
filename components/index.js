@@ -1,21 +1,21 @@
-var React = require('react'),
-    bootstrap = require('react-bootstrap')
+const React = require('react'),
+      bootstrap = require('react-bootstrap');
 
-var NavBar = React.createClass({
+const NavBar = React.createClass({
   render: function () {
     return (
         <bootstrap.Navbar brand={<a href="#">Beer Recipe Adapter</a>} inverse></bootstrap.Navbar>
     );
-  }
+  },
 });
 
-var AdjustableRecipe = React.createClass({
+const AdjustableRecipe = React.createClass({
   propTypes: {
     grains: React.PropTypes.array.isRequired,
     onAddClick: React.PropTypes.func.isRequired,
     onDeleteClick: React.PropTypes.func.isRequired,
   },
-  
+
   render: function () {
     return (
         <div className="container">
@@ -28,20 +28,20 @@ var AdjustableRecipe = React.createClass({
           <AdjustedRecipePanel grains={this.props.grains}/>
         </div>
     );
-  }
+  },
 });
 
-var AdjustableRecipeHeader = React.createClass({
+const AdjustableRecipeHeader = React.createClass({
   render: function () {
     return (
         <div className="page-header">
           <h1>Beer Recipe Adapter <small>Adapt any recipe to fit your needs</small></h1>
         </div>
     );
-  }
+  },
 });
 
-var RecipeTargets = React.createClass({
+const RecipeTargets = React.createClass({
   render: function () {
     return (
         <bootstrap.Row>
@@ -66,19 +66,19 @@ var RecipeTargets = React.createClass({
           </bootstrap.Col>
         </bootstrap.Row>
     );
-  }
+  },
 });
 
-var OriginalRecipePanel = React.createClass({
+const OriginalRecipePanel = React.createClass({
   propTypes: {
     grains: React.PropTypes.array.isRequired,
     onAddClick: React.PropTypes.func.isRequired,
     onDeleteClick: React.PropTypes.func.isRequired,
   },
-  
+
   render: function () {
-    var header = (<h4>Original Grain Bill</h4>);
-    
+    const header = (<h4>Original Grain Bill</h4>);
+
     return (
         <bootstrap.Panel header={header} bsStyle="primary">
           <GrainList grains={this.props.grains}
@@ -87,44 +87,46 @@ var OriginalRecipePanel = React.createClass({
           <GrainInput onAddClick={this.props.onAddClick} />
         </bootstrap.Panel>
     );
-  }
+  },
 });
 
-var AdjustedRecipePanel = React.createClass({
+const AdjustedRecipePanel = React.createClass({
   propTypes: {
     grains: React.PropTypes.array.isRequired,
   },
-  
+
   render: function () {
-    var header = (<h4>Adjusted Grain Bill</h4>);
-    
+    const header = (<h4>Adjusted Grain Bill</h4>);
+
     return (
         <bootstrap.Panel header={header} bsStyle="primary">
           <GrainList grains={this.props.grains}/>
         </bootstrap.Panel>
     );
-  }
+  },
 });
 
-var GrainList = React.createClass({
+const GrainList = React.createClass({
   propTypes: {
     grains: React.PropTypes.array.isRequired,
     onDeleteClick: React.PropTypes.func.isRequired,
   },
-  
+
   render: function () {
-    var totalWeight = this.props.grains.reduce(function (accum, grain) {
-      return accum + grain.weight
+    const totalWeight = this.props.grains.reduce(function (accum, grain) {
+      return accum + grain.weight;
     }, 0);
-    
-    var grains = this.props.grains.map(function (grain) {
-      return <GrainItem key={grain.id}
-                        grain={grain}
-                        id={grain.id}
-                        type={grain.type}
-                        weight={grain.weight}
-                        percentage={grain.weight / totalWeight}
-                        onDeleteClick={this.props.onDeleteClick} />
+
+    const grains = this.props.grains.map(function (grain) {
+      return (
+          <GrainItem key={grain.id}
+                     grain={grain}
+                     id={grain.id}
+                     type={grain.type}
+                     weight={grain.weight}
+                     percentage={grain.weight / totalWeight}
+                     onDeleteClick={this.props.onDeleteClick} />
+      );
     }.bind(this));
 
     return (
@@ -143,26 +145,28 @@ var GrainList = React.createClass({
           </tbody>
         </bootstrap.Table>
     );
-  }
+  },
 });
 
-var GrainItem = React.createClass({
+const GrainItem = React.createClass({
   propTypes: {
     grain: React.PropTypes.shape({
+      id: React.PropTypes.id.isRequired,
       type: React.PropTypes.string.isRequired,
       weight: React.PropTypes.number.isRequired,
     }).isRequired,
     percentage: React.PropTypes.number.isRequired,
+    onDeleteClick: React.PropTypes.func.isRequired,
   },
 
-  onDeleteClick: function (e) {
+  onDeleteClick: function () {
     this.props.onDeleteClick(this.props.grain.id);
   },
-  
+
   render: function () {
-    var lbs = Math.floor(this.props.grain.weight),
-        oz = (this.props.grain.weight - lbs) * 16
-    
+    const lbs = Math.floor(this.props.grain.weight),
+          oz = (this.props.grain.weight - lbs) * 16;
+
     return (
         <tr>
           <td>{this.props.grain.type}</td>
@@ -175,25 +179,25 @@ var GrainItem = React.createClass({
           </td>
         </tr>
     );
-  }
-})
+  },
+});
 
-var GrainInput = React.createClass({
+const GrainInput = React.createClass({
   propTypes: {
     onAddClick: React.PropTypes.func.isRequired,
   },
-  
-  onAddClick: function (e) {
-    var grainType = this.refs.grainTypeInput.getValue(),
-        inputLbs = this.refs.weightLbsInput.getValue(),
-        inputOz = this.refs.weightOzInput.getValue(),
-        
-        lbs = parseInt(inputLbs, 10),
-        oz = parseInt(inputOz, 10),
 
-        weight = lbs + (oz/16)
+  onAddClick: function () {
+    const grainType = this.refs.grainTypeInput.getValue(),
+          inputLbs = this.refs.weightLbsInput.getValue(),
+          inputOz = this.refs.weightOzInput.getValue(),
 
-    this.props.onAddClick(grainType, weight)
+          lbs = parseInt(inputLbs, 10),
+          oz = parseInt(inputOz, 10),
+
+          weight = lbs + (oz / 16);
+
+    this.props.onAddClick(grainType, weight);
   },
 
   render: function () {
@@ -229,10 +233,10 @@ var GrainInput = React.createClass({
           </bootstrap.Row>
         </form>
     );
-  }
-})
+  },
+});
 
 module.exports = {
   NavBar: NavBar,
   AdjustableRecipe: AdjustableRecipe,
-}
+};

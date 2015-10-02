@@ -1,6 +1,6 @@
-var _ = require('lodash')
+const _ = require('lodash');
 
-var exampleState = {
+const exampleState = {
   result: [1],
   entities: {
     grains: {
@@ -8,23 +8,23 @@ var exampleState = {
         id: 1,
         type: 'Two Row (US)',
         weight: 12.125,
-      }
+      },
     },
   },
 };
 
-var initialState = exampleState;
+const initialState = exampleState;
 
 function recipeApp (state, action) {
   if (!state) {
     return initialState;
   }
 
-  var _entities = entities(state.entities, action)
+  const _entities = entities(state.entities, action);
   return {
     result: _.map(_entities.grains, function (val, key) { return key; }),
     entities: _entities,
-  }
+  };
 }
 
 function entities (state, action) {
@@ -34,11 +34,9 @@ function entities (state, action) {
 }
 
 function grains (state, action) {
-  console.log(JSON.stringify(state));
-  
   switch (action.type) {
     case 'ADD_GRAIN':
-      return addGrain (state, action);
+      return addGrain(state, action);
     case 'DELETE_GRAIN':
       return deleteGrain(state, action);
     default:
@@ -47,27 +45,26 @@ function grains (state, action) {
 }
 
 function addGrain (state, action) {
-  var id = newId(state),
-      grains = {};
-  
-  grains[id] = {
+  const id = newId(state),
+        _grains = {};
+
+  _grains[id] = {
     id: id,
     type: action.payload.type,
     weight: action.payload.weight,
   };
-  
+
   return _.assign({}, state, grains);
 }
 
 function deleteGrain (state, action) {
-  var id = action.payload.id;
-  return _.omit(state, id)
+  return _.omit(state, action.payload.id);
 }
 
-function newId(state) {
+function newId (state) {
   return 1 + _.reduce(state, function (accum, val, key) {
-    return Math.max(key, accum)
-  }, -1)
+    return Math.max(key, accum);
+  }, -1);
 }
 
-module.exports = recipeApp
+module.exports = recipeApp;

@@ -1,24 +1,23 @@
-var actions = require('../actions/recipe'),
-    bootstrap = require('react-bootstrap'),
-    components = require('../components'),
-    React = require('react'),
-    redux = require('react-redux');
+const actions = require('../actions/recipe'),
+      components = require('../components'),
+      React = require('react'),
+      redux = require('react-redux');
 
-var RecipeApp = React.createClass({
+const RecipeApp = React.createClass({
   propTypes: {
     grains: React.PropTypes.array.isRequired,
     dispatch: React.PropTypes.func.isRequired,
   },
-  
+
   render: function () {
-    var dispatch = this.props.dispatch
-    
-    var onAddClick = function (grainType, weight) {
-      dispatch(actions.addGrain(grainType, weight))
+    const dispatch = this.props.dispatch;
+
+    const onAddClick = function (grainType, weight) {
+      dispatch(actions.addGrain(grainType, weight));
     };
 
-    var onDeleteClick = function (id) {
-      dispatch(actions.deleteGrain(id))
+    const onDeleteClick = function (id) {
+      dispatch(actions.deleteGrain(id));
     };
 
     return (
@@ -29,15 +28,15 @@ var RecipeApp = React.createClass({
                                        onDeleteClick={onDeleteClick} />
         </div>
     );
-  }
+  },
 });
 
 function select (state) {
   return {
     grains: state.result.map(function (id) {
       return state.entities.grains[id];
-    })
+    }),
   };
-};
+}
 
-module.exports = redux.connect(select)(RecipeApp)
+module.exports = redux.connect(select)(RecipeApp);

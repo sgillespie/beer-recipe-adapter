@@ -1,9 +1,9 @@
-var RecipeApp = require('./containers/App'),
-    React = require('react'),
-    redux = require('react-redux'),
-    store = require('./store')
+const RecipeApp = require('./containers/App'),
+      React = require('react'),
+      redux = require('react-redux'),
+      store = require('./store');
 
-var state = {
+const state = {
   result: [1, 2, 3],
   entities: {
     grains: {
@@ -26,13 +26,13 @@ var state = {
   },
 };
 
-var recipeStore = store(state);
+const recipeStore = store(state);
 
 function renderApp () {
   return (
       <RecipeApp/>
   );
-};
+}
 
 React.render(
     <redux.Provider store={recipeStore}>

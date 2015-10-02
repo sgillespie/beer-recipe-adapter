@@ -4,8 +4,8 @@
   "description": "Adapt any beer recipe to your needs",
   "main": "index.js",
   "scripts": {
-    "browserify": "browserify -t reactify index.js -o bundle.js",
-    "watchify": "watchify -t reactify index.js -o bundle.js",
+    "browserify": "./node_modules/browserify/bin/cmd.js -t reactify -t babelify index.js -o bundle.js",
+    "watchify": "./node_modules/watchify/bin/cmd.js -t reactify -b babelify index.js -o bundle.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Sean Gillespie",
@@ -23,12 +23,15 @@
   },
   "homepage": "https://github.com/sgillespie/beer-recipe-adapter#readme",
   "dependencies": {
+    "babelify": "^6.3.0",
     "lodash": "^3.10.1",
     "react": "^0.13.3",
     "react-bootstrap": "^0.25.2",
     "react-redux": "^2.1.2",
+    "reactify": "^1.1.1",
     "redux": "^3.0.0",
-    "redux-thunk": "^1.0.0"
+    "redux-thunk": "^1.0.0",
+    "watchify": "^3.4.0"
   },
   "devDependencies": {
     "reactify": "^1.1.1"

@@ -7,7 +7,15 @@
     "browserify": "./node_modules/browserify/bin/cmd.js -t reactify -t babelify index.js -o bundle.js",
     "watchify": "./node_modules/watchify/bin/cmd.js -t reactify -b babelify index.js -o bundle.js",
     "lint": "./node_modules/eslint/bin/eslint.js .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --noHighlight"
+  },
+  "jest": {
+    "globals": {
+      "__DEV__": true
+    },
+    "scriptPreprocessor": "./node_modules/babel-jest",
+    "testDirectoryName": "test",
+    "unmockedModulePathPatterns": ["./node_modules/"]
   },
   "author": "Sean Gillespie",
   "license": "MIT",
@@ -26,6 +34,7 @@
   "dependencies": {
     "babelify": "^6.3.0",
     "eslint": "^1.5.1",
+    "jquery": "^2.1.4",
     "lodash": "^3.10.1",
     "react": "^0.13.3",
     "react-bootstrap": "^0.25.2",
@@ -37,9 +46,11 @@
   },
   "devDependencies": {
     "babel-eslint": "^4.1.3",
+    "babel-jest": "^5.3.0",
     "eslint": "^1.5.1",
     "eslint-config-airbnb": "^0.1.0",
     "eslint-plugin-react": "^3.5.1",
+    "jest-cli": "^0.5.8",
     "reactify": "^1.1.1"
   }
 }

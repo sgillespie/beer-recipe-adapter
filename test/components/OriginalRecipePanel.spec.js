@@ -1,30 +1,56 @@
-jest.dontMock('../../components/OriginalRecipePanel');
-
-const GrainInput = require('../../components/GrainInput'),
+const jsdom = require('mocha-jsdom'),
+      GrainInput = require('../../components/GrainInput'),
       GrainList = require('../../components/GrainList'),
       OriginalRecipePanel = require('../../components/OriginalRecipePanel'),
       React = require('react/addons'),
+      should = require('chai').should(),
       TestUtils = React.addons.TestUtils;
 
 describe('OriginalRecipePanel', function () {
+  jsdom();
+
   const onAddClick = () => 'clicked add',
         onDeleteClick = () => 'clicked delete',
-        grains = ['grain1', 'grain2'],
+        grains = [
+              {
+                id: 1,
+                type: 'someType',
+                weight: 9,
+              },
+        ];
 
-        originalRecipe = TestUtils.renderIntoDocument(
-            <OriginalRecipePanel onAddClick={onAddClick}
-                                 onDeleteClick={onDeleteClick}
-                                 grains={grains} />
-        );
+  let originalRecipePanel;
 
-  it('passes props to GrainList', function () {
-    const grainList = TestUtils.findRenderedComponentWithType(originalRecipe, GrainList);
-    expect(grainList.props.grains).toEqual(grains);
-    expect(grainList.props.onDeleteClick()).toBe(onDeleteClick());
+  beforeEach(function () {
+    originalRecipePanel = TestUtils.renderIntoDocument(
+        <OriginalRecipePanel onAddClick={onAddClick}
+                             onDeleteClick={onDeleteClick}
+                             grains={grains}/>
+    );
   });
 
-  it('passes props to GrainInput', function () {
-    const grainInput = TestUtils.findRenderedComponentWithType(originalRecipe, GrainInput);
-    expect(grainInput.props.onAddClick()).toBe(onAddClick());
+  it('renders GrainList', function () {
+    const grainList = TestUtils.findRenderedComponentWithType(
+      originalRecipePanel, GrainList);
+    should.exist(grainList);
+  });
+
+  it('should pass props to GrainList', function () {
+    const grainList = TestUtils.findRenderedComponentWithType(
+      originalRecipePanel, GrainList);
+    grainList.props.grains.should.equal(grains);
+    grainList.props.onDeleteClick().should.equal(onDeleteClick());
+  });
+
+  it('renders GrainInput', function () {
+    const grainInput = TestUtils.findRenderedComponentWithType(
+      originalRecipePanel, GrainInput);
+    should.exist(grainInput);
+  });
+
+  it('should pass props to GrainInput', function () {
+    const grainInput = TestUtils.findRenderedComponentWithType(
+      originalRecipePanel, GrainInput);
+    grainInput.props.onAddClick().should.equal(onAddClick());
   });
 });

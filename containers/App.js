@@ -40,4 +40,7 @@ function select (state) {
   };
 }
 
-module.exports = redux.connect(select)(RecipeApp);
+module.exports = {
+  connect: redux.connect(select)(RecipeApp),
+  App: RecipeApp,
+};

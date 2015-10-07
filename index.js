@@ -1,4 +1,4 @@
-const RecipeApp = require('./containers/App'),
+const Recipe = require('./containers/App'),
       React = require('react'),
       redux = require('react-redux'),
       store = require('./store');
@@ -30,7 +30,7 @@ const recipeStore = store(state);
 
 function renderApp () {
   return (
-      <RecipeApp/>
+      <Recipe.connect/>
   );
 }
 

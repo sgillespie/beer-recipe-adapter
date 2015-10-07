@@ -1,23 +1,30 @@
-jest.dontMock('../../components/RecipeTargetsInput');
-
-const React = require('react/addons'),
+const jsdom = require('mocha-jsdom'),
       RecipeTargetsInput = require('../../components/RecipeTargetsInput'),
+      React = require('react/addons'),
       TestUtils = React.addons.TestUtils;
 
-describe('RecipeTargetsInput', function () {
-  const recipeTargets = TestUtils.renderIntoDocument(
-      <RecipeTargetsInput/>
-  );
+require('chai').should();
 
-  it('contains SG Input', function () {
-    expect(recipeTargets.refs.preboilGravityInput.props.type).toBe('text');
+describe('RecipeTargetsInput', function () {
+  jsdom();
+
+  let recipeTargets;
+
+  beforeEach(function () {
+    recipeTargets = TestUtils.renderIntoDocument(
+        <RecipeTargetsInput/>
+    );
+  });
+
+  it('contains SG input', function () {
+    recipeTargets.refs.preboilGravityInput.props.type.should.equal('text');
   });
 
   it('contains volume input', function () {
-    expect(recipeTargets.refs.preboilVolumeInput.props.type).toBe('text');
+    recipeTargets.refs.preboilVolumeInput.props.type.should.equal('text');
   });
 
   it('contains efficiency input', function () {
-    expect(recipeTargets.refs.extractEfficiencyInput.props.type).toBe('text');
+    recipeTargets.refs.extractEfficiencyInput.props.type.should.equal('text');
   });
 });

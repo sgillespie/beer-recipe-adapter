@@ -1,12 +1,15 @@
-jest.dontMock('../../components/GrainList');
-
 const find = require('lodash/collection/find'),
       GrainItem = require('../../components/GrainItem'),
       GrainList = require('../../components/GrainList'),
+      jsdom = require('mocha-jsdom'),
       React = require('react/addons'),
       TestUtils = React.addons.TestUtils;
 
+require('chai').should();
+
 describe('GrainList', function () {
+  jsdom();
+
   const onDeleteClick = () => 'delete clicked';
   let grains;
 
@@ -20,14 +23,14 @@ describe('GrainList', function () {
     ];
   });
 
-  it('should create GrainItems', function () {
+  it('should render GrainItems', function () {
     const grainList = createGrainList(grains, onDeleteClick),
           grainItem = TestUtils.findRenderedComponentWithType(grainList, GrainItem);
 
-    expect(grainItem.props.id).toBe(1);
-    expect(grainItem.props.type).toBe('someType');
-    expect(grainItem.props.weight).toBe(9);
-    expect(grainItem.props.percentage).toBe(1);
+    grainItem.props.id.should.equal(1);
+    grainItem.props.type.should.equal('someType');
+    grainItem.props.weight.should.equal(9);
+    grainItem.props.percentage.should.equal(1);
   });
 
   it('should calculate percentage', function () {
@@ -40,15 +43,15 @@ describe('GrainList', function () {
     const grainList = createGrainList(grains, onDeleteClick),
           grainItems = TestUtils.scryRenderedComponentsWithType(grainList, GrainItem);
 
-    expect(find(grainItems, grain => grain.props.id === 1).props.percentage).toBe(0.75);
-    expect(find(grainItems, grain => grain.props.id === 2).props.percentage).toBe(0.25);
+    find(grainItems, grain => grain.props.id === 1).props.percentage.should.equal(0.75);
+    find(grainItems, grain => grain.props.id === 2).props.percentage.should.equal(0.25);
   });
 
-  it('should pass onDeleteClick to GrainItems', function () {
+  it('should pass props to GrainItems', function () {
     const grainList = createGrainList(grains, onDeleteClick),
           grainItem = TestUtils.findRenderedComponentWithType(grainList, GrainItem);
 
-    expect(grainItem.props.onDeleteClick()).toBe(onDeleteClick());
+    grainItem.props.onDeleteClick().should.equal(onDeleteClick());
   });
 });
 

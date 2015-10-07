@@ -28,8 +28,10 @@ function recipeApp (state, action) {
 }
 
 function entities (state, action) {
+  const _grains = _.get(state, 'grains');
+
   return _.assign({}, state, {
-    grains: grains(state.grains, action),
+    grains: grains(_grains, action),
   });
 }
 

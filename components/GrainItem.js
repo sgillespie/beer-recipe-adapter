@@ -26,7 +26,7 @@ module.exports = React.createClass({
           <td>{lbs}/{oz}</td>
           <td>{(this.props.percentage * 100).toFixed(1)}%</td>
           <td className="text-right">
-          <bootstrap.Button onClick={this.onDeleteClick}>
+            <bootstrap.Button onClick={this.onDeleteClick}>
               <bootstrap.Glyphicon glyph="remove" />
             </bootstrap.Button>
           </td>

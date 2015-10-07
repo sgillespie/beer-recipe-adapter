@@ -29,7 +29,7 @@ module.exports = React.createClass({
                                ref="grainTypeInput"/>
             </bootstrap.Col>
             <bootstrap.Col xs={2}>
-              <bootstrap.Input type="string"
+              <bootstrap.Input type="text"
                                placeholder="Weight (Lbs)"
                                ref="weightLbsInput"
                                addonAfter="lbs"/>

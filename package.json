@@ -7,7 +7,8 @@
     "browserify": "./node_modules/browserify/bin/cmd.js -t reactify -t babelify index.js -o bundle.js",
     "watchify": "./node_modules/watchify/bin/cmd.js -t reactify -b babelify index.js -o bundle.js",
     "lint": "./node_modules/eslint/bin/eslint.js .",
-    "test": "mocha --compilers js:babel/register --recursive --no-colors test/**/*.spec.js"
+    "test": "mocha --compilers js:babel/register --recursive --no-colors test/**/*.spec.js",
+    "coverage": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- --compilers js:babel/register --recursive --no-colors test/**/*.spec.js"
   },
   "author": "Sean Gillespie",
   "license": "MIT",
@@ -44,14 +45,13 @@
     "eslint": "^1.5.1",
     "eslint-config-airbnb": "^0.1.0",
     "eslint-plugin-react": "^3.5.1",
-    "jest-cli": "^0.5.8",
+    "istanbul": "^0.3.22",
     "jsdom": "^6.5.1",
     "mocha": "^2.3.3",
     "mocha-jsdom": "^1.0.0",
     "mocha-sinon": "^1.1.4",
     "reactify": "^1.1.1",
     "sinon": "^1.17.1",
-    "sinon-chai": "^2.8.0",
-    "skin-deep": "^0.8.0"
+    "sinon-chai": "^2.8.0"
   }
 }

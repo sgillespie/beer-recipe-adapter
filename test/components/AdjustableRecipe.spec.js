@@ -1,11 +1,13 @@
-const AdjustableRecipe = require('../../components/AdjustableRecipe'),
-      AdjustedRecipePanel = require('../../components/AdjustedRecipePanel'),
-      should = require('chai').should(),
-      jsdom = require('mocha-jsdom'),
-      OriginalRecipePanel = require('../../components/OriginalRecipePanel'),
-      React = require('react/addons'),
-      RecipeTargetsInput = require('../../components/RecipeTargetsInput'),
-      TestUtils = React.addons.TestUtils;
+import AdjustableRecipe from '../../components/AdjustableRecipe';
+import AdjustedRecipePanel from '../../components/AdjustedRecipePanel';
+import chai from 'chai';
+import jsdom from 'mocha-jsdom';
+import OriginalRecipePanel from '../../components/OriginalRecipePanel';
+import React from 'react/addons';
+import RecipeTargetsInput from '../../components/RecipeTargetsInput';
+
+const should = chai.should();
+const { TestUtils } = React.addons;
 
 describe('AdjustableRecipe', function () {
   jsdom();
@@ -26,25 +28,25 @@ describe('AdjustableRecipe', function () {
     );
   });
 
-  it('renders header', function () {
+  it('renders header', () => {
     const header = TestUtils.findRenderedDOMComponentWithTag(
       adjustableRecipe, 'h1');
     React.findDOMNode(header).textContent.should.not.be.empty;
   });
 
-  it('renders RecipeTargetsInput', function () {
+  it('renders RecipeTargetsInput', () => {
     const recipeTargets = TestUtils.findRenderedComponentWithType(
       adjustableRecipe, RecipeTargetsInput);
     should.exist(recipeTargets);
   });
 
-  it('renders OriginalRecipePanel', function () {
+  it('renders OriginalRecipePanel', () => {
     const originalRecipePanel = TestUtils.findRenderedComponentWithType(
       adjustableRecipe, OriginalRecipePanel);
     should.exist(originalRecipePanel);
   });
 
-  it('should pass props to OriginalRecipePanel', function () {
+  it('should pass props to OriginalRecipePanel', () => {
     const originalRecipePanel = TestUtils.findRenderedComponentWithType(
       adjustableRecipe, OriginalRecipePanel);
 
@@ -53,13 +55,13 @@ describe('AdjustableRecipe', function () {
     originalRecipePanel.props.onDeleteClick.should.equal(onDeleteClick);
   });
 
-  it('renders AdjustedRecipePanel', function () {
+  it('renders AdjustedRecipePanel', () => {
     const adjustedRecipePanel = TestUtils.findRenderedComponentWithType(
       adjustableRecipe, AdjustedRecipePanel);
     should.exist(adjustedRecipePanel);
   });
 
-  it('should pass props to AdjustedRecipePanel', function () {
+  it('should pass props to AdjustedRecipePanel', () => {
     const adjustedRecipePanel = TestUtils.findRenderedComponentWithType(
       adjustableRecipe, AdjustedRecipePanel);
     adjustedRecipePanel.props.grains.should.equal(grains);

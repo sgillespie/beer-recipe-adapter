@@ -1,13 +1,13 @@
-const AdjustedRecipePanel = require('./AdjustedRecipePanel'),
-      OriginalRecipePanel = require('./OriginalRecipePanel'),
-      RecipeTargetsInput = require('./RecipeTargetsInput'),
-      React = require('react');
+import AdjustedRecipePanel from './AdjustedRecipePanel';
+import OriginalRecipePanel from './OriginalRecipePanel';
+import RecipeTargetsInput from './RecipeTargetsInput';
+import React, { PropTypes } from 'react';
 
 module.exports = React.createClass({
   propTypes: {
-    grains: React.PropTypes.array.isRequired,
-    onAddClick: React.PropTypes.func.isRequired,
-    onDeleteClick: React.PropTypes.func.isRequired,
+    grains: PropTypes.array.isRequired,
+    onAddClick: PropTypes.func.isRequired,
+    onDeleteClick: PropTypes.func.isRequired,
   },
 
   render: function () {

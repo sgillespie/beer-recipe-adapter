@@ -1,8 +1,8 @@
 const actions = require('../actions/recipe'),
       AdjustableRecipe = require('../components/AdjustableRecipe'),
+      connect = require('react-redux').connect,
       NavBar = require('../components/NavBar'),
-      React = require('react'),
-      redux = require('react-redux');
+      React = require('react');
 
 const RecipeApp = React.createClass({
   propTypes: {
@@ -41,6 +41,6 @@ function select (state) {
 }
 
 module.exports = {
-  connect: redux.connect(select)(RecipeApp),
+  connect: connect(select)(RecipeApp),
   App: RecipeApp,
 };

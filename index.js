@@ -1,6 +1,7 @@
 const Recipe = require('./containers/App'),
+      Provider = require('react-redux').Provider,
       React = require('react'),
-      redux = require('react-redux'),
+      devtools = require('redux-devtools/lib/react'),
       store = require('./store');
 
 const state = {
@@ -35,8 +36,16 @@ function renderApp () {
 }
 
 React.render(
-    <redux.Provider store={recipeStore}>
+  <div>
+    <Provider store={recipeStore}>
       {renderApp}
-    </redux.Provider>,
+    </Provider>
+
+    <devtools.DebugPanel top right bottom>
+      <devtools.DevTools store={recipeStore}
+                         monitor={devtools.LogMonitor}
+                         visibleOnLoad={process.env.NODE_ENV === 'development'}/>
+    </devtools.DebugPanel>
+  </div>,
   document.getElementById('root')
 );

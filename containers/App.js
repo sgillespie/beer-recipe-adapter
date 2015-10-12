@@ -1,4 +1,4 @@
-const actions = require('../actions/recipe'),
+const actions = require('../actions'),
       AdjustableRecipe = require('../components/AdjustableRecipe'),
       connect = require('react-redux').connect,
       NavBar = require('../components/NavBar'),

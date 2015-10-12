@@ -1,4 +1,4 @@
-import { ADD_GRAIN, DELETE_GRAIN, addGrain, deleteGrain } from '../../actions/recipe';
+import { ADD_GRAIN, DELETE_GRAIN, addGrain, deleteGrain } from '../../actions';
 import { should } from 'chai';
 
 should();

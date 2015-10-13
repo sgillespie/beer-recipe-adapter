@@ -1,30 +1,23 @@
 const bootstrap = require('react-bootstrap'),
+      jsdom = require('mocha-jsdom'),
       NavBar = require('../../components/NavBar.js'),
       React = require('react/addons'),
-      skinDeep = require('skin-deep');
+      TestUtils = React.addons.TestUtils;
 
 require('chai').should();
 
 describe('NavBar', function () {
-  let tree, vdom;
+  jsdom();
 
+  let navBar;
   beforeEach(function () {
-    tree = skinDeep.shallowRender(
-        <NavBar/>
+    navBar = TestUtils.renderIntoDocument(
+      <NavBar/>
     );
-
-    vdom = tree.getRenderOutput();
   });
 
   it('should render', function () {
-    const text = tree
-            .findNode('Navbar')
-            .props
-            .brand
-            .props
-            .children;
-
-    vdom.type.should.equal(bootstrap.Navbar);
-    text.should.not.be.empty;
+    const brand = TestUtils.findRenderedComponentWithType(navBar, bootstrap.Navbar);
+    React.findDOMNode(brand).textContent.should.not.be.empty;
   });
 });

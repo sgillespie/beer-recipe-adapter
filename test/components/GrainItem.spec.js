@@ -1,14 +1,16 @@
-const bootstrap = require('react-bootstrap'),
-      find = require('lodash/collection/find'),
-      GrainItem = require('../../components/GrainItem'),
-      jsdom = require('mocha-jsdom'),
-      React = require('react/addons'),
-      chai = require('chai'),
-      should = chai.should(),
-      TestUtils = React.addons.TestUtils;
+import { Button } from 'react-bootstrap';
+import chai from 'chai';
+import sinon from 'sinon-chai';
+import find from 'lodash/collection/find';
+import GrainItem from '../../components/GrainItem';
+import jsdom from 'mocha-jsdom';
+import 'mocha-sinon';
+import React, { findDOMNode } from 'react/addons';
 
-chai.use(require('sinon-chai'));
-require('mocha-sinon');
+const should = chai.should(),
+      { TestUtils } = React.addons;
+
+chai.use(sinon);
 
 describe('GrainItem', function () {
   jsdom();
@@ -48,8 +50,8 @@ describe('GrainItem', function () {
 
   it('should call onDeleteClick when delete clicked', function () {
     const deleteButton = TestUtils.findRenderedComponentWithType(
-      grainItem, bootstrap.Button);
-    const button = React.findDOMNode(deleteButton);
+      grainItem, Button);
+    const button = findDOMNode(deleteButton);
 
     should.exist(button);
     TestUtils.Simulate.click(button);
@@ -61,6 +63,6 @@ describe('GrainItem', function () {
 function findTdWithText (tree, text) {
   const tds = TestUtils.scryRenderedDOMComponentsWithTag(tree, 'td');
   return find(tds, td => {
-    return TestUtils.isDOMComponent(td) && React.findDOMNode(td).textContent === text;
+    return TestUtils.isDOMComponent(td) && findDOMNode(td).textContent === text;
   });
 }

@@ -3,7 +3,7 @@ import OriginalRecipePanel from './OriginalRecipePanel';
 import RecipeTargetsInput from './RecipeTargetsInput';
 import React, { PropTypes } from 'react';
 
-module.exports = React.createClass({
+export default React.createClass({
   propTypes: {
     grains: PropTypes.array.isRequired,
     onAddClick: PropTypes.func.isRequired,

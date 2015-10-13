@@ -1,10 +1,10 @@
-const bootstrap = require('react-bootstrap'),
-      React = require('react');
+import { Navbar } from 'react-bootstrap';
+import React from 'react';
 
-module.exports = React.createClass({
+export default React.createClass({
   render: function () {
     return (
-        <bootstrap.Navbar brand={<a href="#">Beer Recipe Adapter</a>} inverse></bootstrap.Navbar>
+        <Navbar brand={<a href="#">Beer Recipe Adapter</a>} inverse></Navbar>
     );
   },
 });

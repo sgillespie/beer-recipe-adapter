@@ -1,15 +1,15 @@
-const bootstrap = require('react-bootstrap'),
-      React = require('react');
+import { Button, Glyphicon } from 'react-bootstrap';
+import React, { PropTypes } from 'react';
 
-module.exports = React.createClass({
+export default React.createClass({
   propTypes: {
-    grain: React.PropTypes.shape({
-      id: React.PropTypes.number.isRequired,
-      type: React.PropTypes.string.isRequired,
-      weight: React.PropTypes.number.isRequired,
+    grain: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      type: PropTypes.string.isRequired,
+      weight: PropTypes.number.isRequired,
     }).isRequired,
-    percentage: React.PropTypes.number.isRequired,
-    onDeleteClick: React.PropTypes.func.isRequired,
+    percentage: PropTypes.number.isRequired,
+    onDeleteClick: PropTypes.func.isRequired,
   },
 
   onDeleteClick: function () {
@@ -26,9 +26,9 @@ module.exports = React.createClass({
           <td>{lbs}/{oz}</td>
           <td>{(this.props.percentage * 100).toFixed(1)}%</td>
           <td className="text-right">
-            <bootstrap.Button onClick={this.onDeleteClick}>
-              <bootstrap.Glyphicon glyph="remove" />
-            </bootstrap.Button>
+            <Button onClick={this.onDeleteClick}>
+              <Glyphicon glyph="remove" />
+            </Button>
           </td>
         </tr>
     );

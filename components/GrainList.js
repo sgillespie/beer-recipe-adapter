@@ -1,32 +1,31 @@
-const bootstrap = require('react-bootstrap'),
-      GrainItem = require('./GrainItem'),
-      React = require('react');
+import { Table } from 'react-bootstrap';
+import GrainItem from './GrainItem';
+import React, { PropTypes } from 'react';
 
-module.exports = React.createClass({
+export default React.createClass({
   propTypes: {
-    grains: React.PropTypes.array.isRequired,
-    onDeleteClick: React.PropTypes.func.isRequired,
+    grains: PropTypes.array.isRequired,
+    onDeleteClick: PropTypes.func.isRequired,
   },
 
   render: function () {
-    const totalWeight = this.props.grains.reduce(function (accum, grain) {
-      return accum + grain.weight;
-    }, 0);
+    const { grains, onDeleteClick } = this.props,
+          totalWeight = grains.reduce((accum, grain) => accum + grain.weight, 0),
 
-    const grains = this.props.grains.map(function (grain) {
-      return (
-          <GrainItem key={grain.id}
-                     grain={grain}
-                     id={grain.id}
-                     type={grain.type}
-                     weight={grain.weight}
-                     percentage={grain.weight / totalWeight}
-                     onDeleteClick={this.props.onDeleteClick} />
-      );
-    }.bind(this));
+          grainItems = grains.map(grain => {
+            return (
+                <GrainItem key={grain.id}
+                           grain={grain}
+                           id={grain.id}
+                           type={grain.type}
+                           weight={grain.weight}
+                           percentage={grain.weight / totalWeight}
+                           onDeleteClick={onDeleteClick} />
+            );
+          });
 
     return (
-        <bootstrap.Table>
+        <Table>
           <thead>
             <tr>
               <th>Grain</th>
@@ -37,9 +36,9 @@ module.exports = React.createClass({
           </thead>
 
           <tbody>
-            {grains}
+            {grainItems}
           </tbody>
-        </bootstrap.Table>
+        </Table>
     );
   },
 });

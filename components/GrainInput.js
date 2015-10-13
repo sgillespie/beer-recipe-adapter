@@ -1,9 +1,9 @@
-const React = require('react'),
-      bootstrap = require('react-bootstrap');
+import React, { PropTypes }  from 'react';
+import { Button, Col, Glyphicon, Input, Row } from 'react-bootstrap';
 
 module.exports = React.createClass({
   propTypes: {
-    onAddClick: React.PropTypes.func.isRequired,
+    onAddClick: PropTypes.func.isRequired,
   },
 
   onAddClick: function () {
@@ -22,34 +22,34 @@ module.exports = React.createClass({
   render: function () {
     return (
         <form>
-          <bootstrap.Row>
-            <bootstrap.Col xs={4}>
-              <bootstrap.Input type="text"
-                               placeholder="Grain/Malt Type"
-                               ref="grainTypeInput"/>
-            </bootstrap.Col>
-            <bootstrap.Col xs={2}>
-              <bootstrap.Input type="text"
-                               placeholder="Weight (Lbs)"
-                               ref="weightLbsInput"
-                               addonAfter="lbs"/>
-            </bootstrap.Col>
-            <bootstrap.Col xs={2}>
-              <bootstrap.Input type="text"
-                               placeholder="Ounces"
-                               ref="weightOzInput"
-                               addonAfter="oz"/>
-            </bootstrap.Col>
+          <Row>
+            <Col xs={4}>
+              <Input type="text"
+                     placeholder="Grain/Malt Type"
+                     ref="grainTypeInput"/>
+            </Col>
+            <Col xs={2}>
+              <Input type="text"
+                     placeholder="Weight (Lbs)"
+                     ref="weightLbsInput"
+                     addonAfter="lbs"/>
+            </Col>
+            <Col xs={2}>
+              <Input type="text"
+                     placeholder="Ounces"
+                     ref="weightOzInput"
+                     addonAfter="oz"/>
+            </Col>
 
-            <bootstrap.Col xs={4}>
-              <bootstrap.Button onClick={this.onAddClick}>
-                <bootstrap.Glyphicon glyph="ok"/>
-              </bootstrap.Button>
-                <bootstrap.Button type="reset">
-                <bootstrap.Glyphicon glyph="remove"/>
-              </bootstrap.Button>
-            </bootstrap.Col>
-          </bootstrap.Row>
+            <Col xs={4}>
+              <Button onClick={this.onAddClick}>
+                <Glyphicon glyph="ok"/>
+              </Button>
+                <Button type="reset">
+                <Glyphicon glyph="remove"/>
+              </Button>
+            </Col>
+          </Row>
         </form>
     );
   },

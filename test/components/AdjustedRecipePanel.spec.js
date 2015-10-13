@@ -1,10 +1,11 @@
-const AdjustedRecipePanel = require('../../components/AdjustedRecipePanel'),
-      GrainList = require('../../components/GrainList'),
-      jsdom = require('mocha-jsdom'),
-      React = require('react/addons'),
-      TestUtils = React.addons.TestUtils;
+import AdjustedRecipePanel from '../../components/AdjustedRecipePanel';
+import chai from 'chai';
+import GrainList from '../../components/GrainList';
+import jsdom from 'mocha-jsdom';
+import React from 'react/addons';
 
-require('chai').should();
+const { TestUtils } = React.addons;
+chai.should();
 
 describe('AdjustedRecipePanel', function () {
   jsdom();

@@ -1,10 +1,12 @@
-const jsdom = require('mocha-jsdom'),
-      GrainInput = require('../../components/GrainInput'),
-      GrainList = require('../../components/GrainList'),
-      OriginalRecipePanel = require('../../components/OriginalRecipePanel'),
-      React = require('react/addons'),
-      should = require('chai').should(),
-      TestUtils = React.addons.TestUtils;
+import chai from 'chai';
+import jsdom from 'mocha-jsdom';
+import GrainInput from '../../components/GrainInput';
+import GrainList from '../../components/GrainList';
+import OriginalRecipePanel from '../../components/OriginalRecipePanel';
+import React from 'react/addons';
+
+const should = chai.should(),
+      { TestUtils } = React.addons;
 
 describe('OriginalRecipePanel', function () {
   jsdom();

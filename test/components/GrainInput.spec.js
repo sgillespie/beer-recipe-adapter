@@ -1,10 +1,10 @@
-const GrainInput = require('../../components/GrainInput'),
-      jsdom = require('mocha-jsdom'),
-      React = require('react/addons'),
-      TestUtils = React.addons.TestUtils;
+import chai from 'chai';
+import GrainInput from '../../components/GrainInput';
+import jsdom from 'mocha-jsdom';
+import React from 'react/addons';
 
-require('chai').should();
-
+const { TestUtils } = React.addons;
+chai.should();
 describe('GrainInput', function () {
   jsdom();
 

@@ -1,11 +1,12 @@
-const find = require('lodash/collection/find'),
-      GrainItem = require('../../components/GrainItem'),
-      GrainList = require('../../components/GrainList'),
-      jsdom = require('mocha-jsdom'),
-      React = require('react/addons'),
-      TestUtils = React.addons.TestUtils;
+import chai from 'chai';
+import find from 'lodash/collection/find';
+import GrainItem from '../../components/GrainItem';
+import GrainList from '../../components/GrainList';
+import jsdom from 'mocha-jsdom';
+import React from 'react/addons';
 
-require('chai').should();
+const { TestUtils } = React.addons;
+chai.should();
 
 describe('GrainList', function () {
   jsdom();

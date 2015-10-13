@@ -1,6 +1,6 @@
-const bootstrap = require('react-bootstrap'),
-      GrainList = require('./GrainList'),
-      React = require('react');
+import GrainList from './GrainList';
+import { Panel } from 'react-bootstrap';
+import React from 'react';
 
 module.exports = React.createClass({
   propTypes: {
@@ -11,9 +11,9 @@ module.exports = React.createClass({
     const header = (<h4>Adjusted Grain Bill</h4>);
 
     return (
-        <bootstrap.Panel header={header} bsStyle="primary">
+        <Panel header={header} bsStyle="primary">
           <GrainList grains={this.props.grains}/>
-        </bootstrap.Panel>
+        </Panel>
     );
   },
 });

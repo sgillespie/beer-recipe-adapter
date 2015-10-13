@@ -1,10 +1,11 @@
-const bootstrap = require('react-bootstrap'),
-      jsdom = require('mocha-jsdom'),
-      NavBar = require('../../components/NavBar.js'),
-      React = require('react/addons'),
-      TestUtils = React.addons.TestUtils;
+import chai from 'chai';
+import { Navbar } from 'react-bootstrap';
+import jsdom from 'mocha-jsdom';
+import NavBar from '../../components/NavBar';
+import React from 'react/addons';
 
-require('chai').should();
+const { TestUtils } = React.addons;
+chai.should();
 
 describe('NavBar', function () {
   jsdom();
@@ -17,7 +18,7 @@ describe('NavBar', function () {
   });
 
   it('should render', function () {
-    const brand = TestUtils.findRenderedComponentWithType(navBar, bootstrap.Navbar);
+    const brand = TestUtils.findRenderedComponentWithType(navBar, Navbar);
     React.findDOMNode(brand).textContent.should.not.be.empty;
   });
 });

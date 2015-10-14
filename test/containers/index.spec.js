@@ -1,18 +1,19 @@
-const AdjustableRecipe = require('../../components/AdjustableRecipe'),
-      chai = require('chai'),
-      Recipe = require('../../containers/App'),
-      jsdom = require('mocha-jsdom'),
-      NavBar = require('../../components/NavBar'),
-      React = require('react/addons'),
-      redux = require('react-redux'),
-      should = chai.should(),
-      store = require('../../store'),
-      TestUtils = React.addons.TestUtils;
+import AdjustableRecipe from '../../components/AdjustableRecipe';
+import chai from 'chai';
+import jsdom from 'mocha-jsdom';
+import 'mocha-sinon';
+import NavBar from '../../components/NavBar';
+import { Provider } from 'react-redux';
+import React from 'react/addons';
+import RecipeContainer, { App } from '../../containers';
+import sinon from 'sinon-chai';
+import store from '../../store';
 
-chai.use(require('sinon-chai'));
-require('mocha-sinon');
+chai.use(sinon);
+const should = chai.should(),
+      { TestUtils } = React.addons;
 
-describe('container', function () {
+describe('Containers', function () {
   jsdom();
 
   describe('App', function () {
@@ -28,8 +29,8 @@ describe('container', function () {
     beforeEach(function () {
       dispatch = this.sinon.spy();
       recipeApp = TestUtils.renderIntoDocument(
-          <Recipe.App grains={grains}
-                      dispatch={dispatch}/>
+          <App grains={grains}
+               dispatch={dispatch}/>
       );
     });
 
@@ -81,16 +82,10 @@ describe('container', function () {
 
     let provider;
     beforeEach(function () {
-      const renderApp = () => {
-        return (
-          <Recipe.connect/>
-        );
-      };
-
       provider = TestUtils.renderIntoDocument(
-          <redux.Provider store={testStore}>
-            {renderApp}
-          </redux.Provider>
+          <Provider store={testStore}>
+          {() => <RecipeContainer/>}
+          </Provider>
       );
     });
 

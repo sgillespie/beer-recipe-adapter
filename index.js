@@ -1,8 +1,9 @@
-const Recipe = require('./containers/App'),
-      Provider = require('react-redux').Provider,
-      React = require('react'),
-      devtools = require('redux-devtools/lib/react'),
-      store = require('./store');
+import { DebugPanel, DevTools, LogMonitor } from 'redux-devtools/lib/react';
+import { Provider } from 'react-redux';
+import React from 'react';
+import Recipe from './containers';
+import store from './store';
+
 
 const state = {
   result: [1, 2, 3],
@@ -29,23 +30,17 @@ const state = {
 
 const recipeStore = store(state);
 
-function renderApp () {
-  return (
-      <Recipe.connect/>
-  );
-}
-
 React.render(
   <div>
     <Provider store={recipeStore}>
-      {renderApp}
+      {() => <Recipe/>}
     </Provider>
 
-    <devtools.DebugPanel top right bottom>
-      <devtools.DevTools store={recipeStore}
-                         monitor={devtools.LogMonitor}
-                         visibleOnLoad={process.env.NODE_ENV === 'development'}/>
-    </devtools.DebugPanel>
+    <DebugPanel top right bottom>
+      <DevTools store={recipeStore}
+                monitor={LogMonitor}
+                visibleOnLoad={process.env.NODE_ENV === 'development'}/>
+    </DebugPanel>
   </div>,
   document.getElementById('root')
 );

@@ -1,4 +1,4 @@
-import React, { PropTypes }  from 'react';
+import React, { PropTypes } from 'react';
 import { Button, Col, Glyphicon, Input, Row } from 'react-bootstrap';
 
 module.exports = React.createClass({

@@ -4,7 +4,7 @@ import React from 'react';
 export default React.createClass({
   render: function () {
     return (
-        <Navbar brand={<a href="#">Beer Recipe Adapter</a>} inverse></Navbar>
+        <Navbar brand={<a href="#">Beer Recipe Adapter</a>} inverse/>
     );
   },
 });

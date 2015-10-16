@@ -2,7 +2,7 @@ import AdjustedRecipePanel from '../../components/AdjustedRecipePanel';
 import chai from 'chai';
 import {
   findRenderedComponentWithType,
-  renderIntoDocument
+  renderIntoDocument,
 } from 'react-addons-test-utils';
 import GrainList from '../../components/GrainList';
 import jsdom from 'mocha-jsdom';

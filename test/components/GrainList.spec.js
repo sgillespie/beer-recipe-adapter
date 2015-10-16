@@ -3,7 +3,7 @@ import find from 'lodash/collection/find';
 import {
   findRenderedComponentWithType,
   renderIntoDocument,
-  scryRenderedComponentsWithType
+  scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
 import GrainItem from '../../components/GrainItem';
 import GrainList from '../../components/GrainList';

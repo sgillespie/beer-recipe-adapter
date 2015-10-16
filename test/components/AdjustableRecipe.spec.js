@@ -1,13 +1,12 @@
 import AdjustableRecipe from '../../components/AdjustableRecipe';
 import AdjustedRecipePanel from '../../components/AdjustedRecipePanel';
 import chai from 'chai';
-import { findDOMNode } from 'react-dom'
+import { findDOMNode } from 'react-dom';
 import {
   findRenderedDOMComponentWithTag,
   findRenderedComponentWithType,
-  renderIntoDocument
+  renderIntoDocument,
 } from 'react-addons-test-utils';
-
 import jsdom from 'mocha-jsdom';
 import OriginalRecipePanel from '../../components/OriginalRecipePanel';
 import React from 'react';

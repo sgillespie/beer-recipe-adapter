@@ -2,7 +2,7 @@ import AdjustableRecipe from '../../components/AdjustableRecipe';
 import chai from 'chai';
 import {
   findRenderedComponentWithType,
-  renderIntoDocument
+  renderIntoDocument,
 } from 'react-addons-test-utils';
 import jsdom from 'mocha-jsdom';
 import 'mocha-sinon';

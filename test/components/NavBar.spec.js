@@ -2,10 +2,10 @@ import chai from 'chai';
 import { findDOMNode } from 'react-dom';
 import {
   findRenderedComponentWithType,
-  renderIntoDocument
+  renderIntoDocument,
 } from 'react-addons-test-utils';
 import jsdom from 'mocha-jsdom';
-import { Navbar, NavBrand } from 'react-bootstrap';
+import { NavBrand } from 'react-bootstrap';
 import NavBar from '../../components/NavBar';
 import React from 'react';
 

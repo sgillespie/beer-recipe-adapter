@@ -2,12 +2,13 @@ import { Button } from 'react-bootstrap';
 import chai from 'chai';
 import find from 'lodash/collection/find';
 import { findDOMNode } from 'react-dom';
-import { findRenderedComponentWithType,
-         isDOMComponent,
-         renderIntoDocument,
-         scryRenderedDOMComponentsWithTag,
-         Simulate } from 'react-addons-test-utils';
-
+import {
+  findRenderedComponentWithType,
+  isDOMComponent,
+  renderIntoDocument,
+  scryRenderedDOMComponentsWithTag,
+  Simulate,
+} from 'react-addons-test-utils';
 import sinon from 'sinon-chai';
 import GrainItem from '../../components/GrainItem';
 import jsdom from 'mocha-jsdom';
@@ -52,7 +53,7 @@ describe('GrainItem', function () {
             </tbody>
           </table>
     );
-    
+
     grainItem = renderIntoDocument(
         <WrapDOMNode child={grainListItem}/>
     );

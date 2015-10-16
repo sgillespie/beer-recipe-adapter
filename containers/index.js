@@ -2,6 +2,7 @@ import { addGrain, deleteGrain } from '../actions';
 import compose from 'lodash/function/compose';
 import AdjustableRecipe from '../components/AdjustableRecipe';
 import { connect } from 'react-redux';
+import map from 'lodash/collection/map';
 import NavBar from '../components/NavBar';
 import React, { PropTypes } from 'react';
 
@@ -26,10 +27,11 @@ export const App = React.createClass({
 });
 
 function select (state) {
-  const { result, entities } = state;
+  const { targets, grains } = state;
 
   return {
-    grains: result.map(id => entities.grains[id]),
+    grains: map(grains),
+    targets,
   };
 }
 

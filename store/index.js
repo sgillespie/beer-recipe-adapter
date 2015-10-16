@@ -1,5 +1,5 @@
 const redux = require('redux'),
-      reducers = require('../reducers/recipe.js');
+      reducers = require('../reducers');
 
 const createStore = redux.compose(
   require('redux-devtools').devTools()

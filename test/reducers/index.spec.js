@@ -1,20 +1,25 @@
-const reducers = require('../../reducers/recipe');
+import chai from 'chai';
+import { find, findKey, size } from 'lodash';
+import reduce from '../../reducers';
 
-require('chai').should();
+chai.should();
 
 describe('reducers', function () {
   it('should have an initial state', function () {
-    const state = reducers(null, {}),
-          grain = state.entities.grains[1];
+    const { grains, targets } = reduce(),
+          grain = find(grains, () => true);
 
-    state.result.should.contain(1);
+    targets.efficiency.should.equal(0.7);
+    targets.gravity.should.equal(1.055);
+    targets.volume.should.equal(5);
+
     grain.id.should.equal(1);
     grain.type.should.equal('Two Row (US)');
     grain.weight.should.equal(12.125);
   });
 
   it('should handle ADD_GRAIN', function () {
-    const state = reducers([], {
+    const { grains } = reduce({}, {
             type: 'ADD_GRAIN',
             payload: {
               type: 'grain',
@@ -22,9 +27,11 @@ describe('reducers', function () {
             },
           }),
 
-          index = state.result[0],
-          grain = state.entities.grains[index];
+          index = findKey(grains),
+          grain = grains[index];
 
+
+    size(grains).should.equal(1);
     grain.id.toString().should.equal(index);
     grain.type.should.equal('grain');
     grain.weight.should.equal(10);
@@ -32,7 +39,6 @@ describe('reducers', function () {
 
   it('should handle DELETE_GRAIN', function () {
     const initialState = {
-            result: [0],
             grains: {
               0: {
                 id: 0,
@@ -42,14 +48,15 @@ describe('reducers', function () {
             },
           },
 
-          state = reducers(initialState, {
+          state = reduce(initialState, {
             type: 'DELETE_GRAIN',
             payload: {
               id: 0,
             },
-          });
+          }),
 
-    state.result.should.be.empty;
-    state.entities.grains.should.be.empty;
+          { grains } = state;
+
+    grains.should.be.empty;
   });
 });

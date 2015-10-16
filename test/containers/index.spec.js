@@ -68,14 +68,17 @@ describe('Containers', function () {
 
   describe('connect', function () {
     const testStore = store({
-      result: [0],
-      entities: {
-        grains: {
-          0: {
-            id: 0,
-            type: 'type',
-            weight: 9,
-          },
+      targets: {
+        efficienty: 0.7,
+        gravity: 1.055,
+        volume: 5,
+      },
+
+      grains: {
+        0: {
+          id: 0,
+          type: 'type',
+          weight: 9,
         },
       },
     });

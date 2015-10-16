@@ -2,6 +2,7 @@ import { DebugPanel, DevTools, LogMonitor } from 'redux-devtools/lib/react';
 import { Provider } from 'react-redux';
 import React from 'react';
 import Recipe from './containers';
+import { render } from 'react-dom';
 import store from './store';
 
 
@@ -33,7 +34,7 @@ const state = {
 
 const recipeStore = store(state);
 
-React.render(
+render(
   <div>
     <Provider store={recipeStore}>
       <Recipe/>

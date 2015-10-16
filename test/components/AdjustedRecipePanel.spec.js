@@ -1,10 +1,13 @@
 import AdjustedRecipePanel from '../../components/AdjustedRecipePanel';
 import chai from 'chai';
+import {
+  findRenderedComponentWithType,
+  renderIntoDocument
+} from 'react-addons-test-utils';
 import GrainList from '../../components/GrainList';
 import jsdom from 'mocha-jsdom';
-import React from 'react/addons';
+import React from 'react';
 
-const { TestUtils } = React.addons;
 chai.should();
 
 describe('AdjustedRecipePanel', function () {
@@ -20,13 +23,13 @@ describe('AdjustedRecipePanel', function () {
 
   let adjustedRecipe;
   beforeEach(function () {
-    adjustedRecipe = TestUtils.renderIntoDocument(
+    adjustedRecipe = renderIntoDocument(
         <AdjustedRecipePanel grains={grains}/>
     );
   });
 
   it('should pass props to GrainList', function () {
-    const grainList = TestUtils.findRenderedComponentWithType(adjustedRecipe, GrainList);
+    const grainList = findRenderedComponentWithType(adjustedRecipe, GrainList);
     grainList.props.grains.should.equal(grains);
   });
 });

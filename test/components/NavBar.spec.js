@@ -1,10 +1,14 @@
 import chai from 'chai';
-import { Navbar } from 'react-bootstrap';
+import { findDOMNode } from 'react-dom';
+import {
+  findRenderedComponentWithType,
+  renderIntoDocument
+} from 'react-addons-test-utils';
 import jsdom from 'mocha-jsdom';
+import { Navbar, NavBrand } from 'react-bootstrap';
 import NavBar from '../../components/NavBar';
-import React from 'react/addons';
+import React from 'react';
 
-const { TestUtils } = React.addons;
 chai.should();
 
 describe('NavBar', function () {
@@ -12,13 +16,13 @@ describe('NavBar', function () {
 
   let navBar;
   beforeEach(function () {
-    navBar = TestUtils.renderIntoDocument(
+    navBar = renderIntoDocument(
       <NavBar/>
     );
   });
 
   it('should render', function () {
-    const brand = TestUtils.findRenderedComponentWithType(navBar, Navbar);
-    React.findDOMNode(brand).textContent.should.not.be.empty;
+    const brand = findRenderedComponentWithType(navBar, NavBrand);
+    findDOMNode(brand).textContent.should.not.be.empty;
   });
 });

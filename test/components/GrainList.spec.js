@@ -1,11 +1,15 @@
 import chai from 'chai';
 import find from 'lodash/collection/find';
+import {
+  findRenderedComponentWithType,
+  renderIntoDocument,
+  scryRenderedComponentsWithType
+} from 'react-addons-test-utils';
 import GrainItem from '../../components/GrainItem';
 import GrainList from '../../components/GrainList';
 import jsdom from 'mocha-jsdom';
-import React from 'react/addons';
+import React from 'react';
 
-const { TestUtils } = React.addons;
 chai.should();
 
 describe('GrainList', function () {
@@ -26,7 +30,7 @@ describe('GrainList', function () {
 
   it('should render GrainItems', function () {
     const grainList = createGrainList(grains, onDeleteClick),
-          grainItem = TestUtils.findRenderedComponentWithType(grainList, GrainItem);
+          grainItem = findRenderedComponentWithType(grainList, GrainItem);
 
     grainItem.props.id.should.equal(1);
     grainItem.props.type.should.equal('someType');
@@ -42,7 +46,7 @@ describe('GrainList', function () {
     });
 
     const grainList = createGrainList(grains, onDeleteClick),
-          grainItems = TestUtils.scryRenderedComponentsWithType(grainList, GrainItem);
+          grainItems = scryRenderedComponentsWithType(grainList, GrainItem);
 
     find(grainItems, grain => grain.props.id === 1).props.percentage.should.equal(0.75);
     find(grainItems, grain => grain.props.id === 2).props.percentage.should.equal(0.25);
@@ -50,14 +54,14 @@ describe('GrainList', function () {
 
   it('should pass props to GrainItems', function () {
     const grainList = createGrainList(grains, onDeleteClick),
-          grainItem = TestUtils.findRenderedComponentWithType(grainList, GrainItem);
+          grainItem = findRenderedComponentWithType(grainList, GrainItem);
 
     grainItem.props.onDeleteClick().should.equal(onDeleteClick());
   });
 });
 
 function createGrainList (grains, onDeleteClick) {
-  return TestUtils.renderIntoDocument(
+  return renderIntoDocument(
       <GrainList grains={grains} onDeleteClick={onDeleteClick}/>
   );
 }

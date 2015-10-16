@@ -1,10 +1,11 @@
 import chai from 'chai';
 import GrainInput from '../../components/GrainInput';
 import jsdom from 'mocha-jsdom';
-import React from 'react/addons';
+import React from 'react';
+import { renderIntoDocument } from 'react-addons-test-utils';
 
-const { TestUtils } = React.addons;
 chai.should();
+
 describe('GrainInput', function () {
   jsdom();
 
@@ -12,7 +13,7 @@ describe('GrainInput', function () {
   let grainInput;
 
   beforeEach(function () {
-    grainInput = TestUtils.renderIntoDocument(
+    grainInput = renderIntoDocument(
         <GrainInput onAddClick={onAddClick}/>
     );
   });

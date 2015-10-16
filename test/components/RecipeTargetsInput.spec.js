@@ -1,7 +1,7 @@
-const jsdom = require('mocha-jsdom'),
-      RecipeTargetsInput = require('../../components/RecipeTargetsInput'),
-      React = require('react/addons'),
-      TestUtils = React.addons.TestUtils;
+import jsdom from 'mocha-jsdom';
+import RecipeTargetsInput from '../../components/RecipeTargetsInput';
+import React from 'react';
+import { renderIntoDocument } from 'react-addons-test-utils';
 
 require('chai').should();
 
@@ -11,7 +11,7 @@ describe('RecipeTargetsInput', function () {
   let recipeTargets;
 
   beforeEach(function () {
-    recipeTargets = TestUtils.renderIntoDocument(
+    recipeTargets = renderIntoDocument(
         <RecipeTargetsInput/>
     );
   });

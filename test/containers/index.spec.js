@@ -87,7 +87,7 @@ describe('Containers', function () {
     beforeEach(function () {
       provider = TestUtils.renderIntoDocument(
           <Provider store={testStore}>
-          {() => <RecipeContainer/>}
+            <RecipeContainer/>
           </Provider>
       );
     });

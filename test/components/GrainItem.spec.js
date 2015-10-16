@@ -1,16 +1,35 @@
 import { Button } from 'react-bootstrap';
 import chai from 'chai';
-import sinon from 'sinon-chai';
 import find from 'lodash/collection/find';
+import { findDOMNode } from 'react-dom';
+import { findRenderedComponentWithType,
+         isDOMComponent,
+         renderIntoDocument,
+         scryRenderedDOMComponentsWithTag,
+         Simulate } from 'react-addons-test-utils';
+
+import sinon from 'sinon-chai';
 import GrainItem from '../../components/GrainItem';
 import jsdom from 'mocha-jsdom';
 import 'mocha-sinon';
-import React, { findDOMNode } from 'react/addons';
+import React, { PropTypes } from 'react';
 
-const should = chai.should(),
-      { TestUtils } = React.addons;
-
+const should = chai.should();
 chai.use(sinon);
+
+const WrapDOMNode = React.createClass({
+  propTypes: {
+    child: PropTypes.object.isRequired,
+  },
+
+  render: function () {
+    return (
+      <div>
+        {this.props.child}
+      </div>
+    );
+  },
+});
 
 describe('GrainItem', function () {
   jsdom();
@@ -24,15 +43,18 @@ describe('GrainItem', function () {
   let grainItem, onDeleteClick;
   beforeEach(function () {
     onDeleteClick = this.sinon.spy();
-
-    grainItem = TestUtils.renderIntoDocument(
-        <table>
-          <tbody>
-            <GrainItem grain={grain}
-                       onDeleteClick={onDeleteClick}
-                       percentage={1}/>
-          </tbody>
-        </table>
+    const grainListItem = (
+          <table>
+            <tbody>
+              <GrainItem grain={grain}
+                         onDeleteClick={onDeleteClick}
+                         percentage={1}/>
+            </tbody>
+          </table>
+    );
+    
+    grainItem = renderIntoDocument(
+        <WrapDOMNode child={grainListItem}/>
     );
   });
 
@@ -49,20 +71,20 @@ describe('GrainItem', function () {
   });
 
   it('should call onDeleteClick when delete clicked', function () {
-    const deleteButton = TestUtils.findRenderedComponentWithType(
+    const deleteButton = findRenderedComponentWithType(
       grainItem, Button);
     const button = findDOMNode(deleteButton);
 
     should.exist(button);
-    TestUtils.Simulate.click(button);
+    Simulate.click(button);
 
     onDeleteClick.should.have.been.calledWith(grain.id);
   });
 });
 
 function findTdWithText (tree, text) {
-  const tds = TestUtils.scryRenderedDOMComponentsWithTag(tree, 'td');
+  const tds = scryRenderedDOMComponentsWithTag(tree, 'td');
   return find(tds, td => {
-    return TestUtils.isDOMComponent(td) && findDOMNode(td).textContent === text;
+    return isDOMComponent(td) && findDOMNode(td).textContent === text;
   });
 }

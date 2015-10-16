@@ -36,7 +36,7 @@ const recipeStore = store(state);
 React.render(
   <div>
     <Provider store={recipeStore}>
-      {() => <Recipe/>}
+      <Recipe/>
     </Provider>
 
     <DebugPanel top right bottom>

@@ -1,5 +1,5 @@
-const bootstrap = require('react-bootstrap'),
-      React = require('react');
+import { Input, Col, Row } from 'react-bootstrap';
+import React from 'react';
 
 module.exports = React.createClass({
   getInitialState: function () {
@@ -20,32 +20,32 @@ module.exports = React.createClass({
 
   render: function () {
     return (
-        <bootstrap.Row>
-          <bootstrap.Col xs={3}>
-            <bootstrap.Input type="text"
-                             label="Preboil Gravity (SG)"
-                             ref="gravity"
-                             onChange={this.onChange}
-                             defaultValue={this.state.gravity}/>
-          </bootstrap.Col>
-          <bootstrap.Col xs={3}>
-            <bootstrap.Input type="text"
-                             label="Preboil Volume (Gallons)"
-                             placeholder="6.5"
-                             ref="volume"
-                             onChange={this.onChange}
-                             defaultValue={this.state.volume}/>
-          </bootstrap.Col>
-          <bootstrap.Col xs={3}>
-            <bootstrap.Input type="text"
-                             label="Extract Efficiency"
-                             placeholder="60"
-                             ref="efficiency"
-                             onChange={this.onChange}
-                             defaultValue={this.state.efficiency}
-                             addonAfter="%"/>
-          </bootstrap.Col>
-        </bootstrap.Row>
+        <Row>
+          <Col xs={3}>
+            <Input type="text"
+                   label="Preboil Gravity (SG)"
+                   ref="gravity"
+                   onChange={this.onChange}
+                   defaultValue={this.state.gravity}/>
+          </Col>
+          <Col xs={3}>
+            <Input type="text"
+                   label="Preboil Volume (Gallons)"
+                   placeholder="6.5"
+                   ref="volume"
+                   onChange={this.onChange}
+                   defaultValue={this.state.volume}/>
+          </Col>
+          <Col xs={3}>
+            <Input type="text"
+                   label="Extract Efficiency"
+                   placeholder="60"
+                   ref="efficiency"
+                   onChange={this.onChange}
+                   defaultValue={this.state.efficiency}
+                   addonAfter="%"/>
+          </Col>
+        </Row>
     );
   },
 });

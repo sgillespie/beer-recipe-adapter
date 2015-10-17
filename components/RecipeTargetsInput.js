@@ -1,7 +1,11 @@
 import { Input, Col, Row } from 'react-bootstrap';
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 module.exports = React.createClass({
+  propTypes: {
+    onChangeTargets: PropTypes.func.isRequired,
+  },
+  
   getInitialState: function () {
     return {
       efficiency: 0.7,
@@ -11,11 +15,17 @@ module.exports = React.createClass({
   },
 
   onChange: function () {
+    const efficiency = this.refs.efficiency.getValue(),
+          gravity = this.refs.gravity.getValue(),
+          volume = this.refs.volume.getValue();
+    
     this.setState({
-      efficiency: this.refs.efficiency.getValue(),
-      gravity: this.refs.gravity.getValue(),
-      volume: this.refs.volume.getValue(),
+      efficiency,
+      gravity,
+      volume,
     });
+
+    this.props.onChangeTargets(efficiency, gravity, volume);
   },
 
   render: function () {

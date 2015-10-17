@@ -67,6 +67,13 @@ describe('Containers', function () {
       adjustableRecipe.props.onDeleteClick(1);
       dispatch.should.be.calledWithMatch({ type: 'DELETE_GRAIN' });
     });
+
+    it('should call dispatch when onChangeTargets is called', function () {
+      const adjustableRecipe = findRenderedComponentWithType(
+        recipeApp, AdjustableRecipe);
+      adjustableRecipe.props.onChangeTargets(0.5, 1.050, 10);
+      dispatch.should.be.calledWithMatch({ type: 'UPDATE_TARGETS' });
+    });
   });
 
   describe('connect', function () {
@@ -96,17 +103,15 @@ describe('Containers', function () {
     });
 
 
+    // TODO[sgillespie]: Check targets
     it('connect should map state to props', function () {
       const adjustableRecipe = findRenderedComponentWithType(
-        provider, AdjustableRecipe);
+                                 provider, AdjustableRecipe),
+            { grains } = adjustableRecipe.props;
 
-      adjustableRecipe.props.grains.should.eql([
-        {
-          id: 0,
-          type: 'type',
-          weight: 9,
-        },
-      ]);
+      grains[0].id.should.equal(0);
+      grains[0].type.should.equal('type');
+      grains[0].weight.should.equal(9);
     });
   });
 });

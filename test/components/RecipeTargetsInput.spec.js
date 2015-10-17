@@ -1,3 +1,4 @@
+import chai from 'chai';
 import jsdom from 'mocha-jsdom';
 import RecipeTargetsInput from '../../components/RecipeTargetsInput';
 import React from 'react';
@@ -6,17 +7,24 @@ import {
   renderIntoDocument,
   Simulate,
 } from 'react-addons-test-utils';
+import sinon from 'sinon-chai';
+import 'mocha-sinon';
 
-require('chai').should();
+chai.should();
+chai.use(sinon);
 
 describe('RecipeTargetsInput', function () {
   jsdom();
 
-  let recipeTargets;
-
+  let match,
+      onChangeTargets,
+      recipeTargets;
+  
   beforeEach(function () {
+    match = this.sinon.match;
+    onChangeTargets = this.sinon.spy();
     recipeTargets = renderIntoDocument(
-        <RecipeTargetsInput/>
+        <RecipeTargetsInput onChangeTargets={onChangeTargets}/>
     );
   });
 
@@ -32,7 +40,7 @@ describe('RecipeTargetsInput', function () {
     recipeTargets.refs.efficiency.props.type.should.equal('text');
   });
 
-  it('should update state when efficiency is changed', function () {
+  it('should update state when gravity is changed', function () {
     const { gravity } = recipeTargets.refs,
           inputNode = findRenderedDOMComponentWithTag(gravity, 'input');
 
@@ -60,5 +68,38 @@ describe('RecipeTargetsInput', function () {
     Simulate.change(input);
 
     recipeTargets.state.efficiency.should.equal('1');
+  });
+
+  it('should call onChangeTargets when gravity is changed', function () {
+    const { gravity } = recipeTargets.refs,
+          input = findRenderedDOMComponentWithTag(gravity, 'input');
+
+    input.value = '1.020';
+    Simulate.change(input);
+    
+    onChangeTargets.should.have.been.calledWith(
+      match.any, '1.020', match.any);
+  });
+
+  it('should call onChangeTargets when volume is changed', function () {
+    const { volume } = recipeTargets.refs,
+          input = findRenderedDOMComponentWithTag(volume, 'input');
+
+    input.value = '10';
+    Simulate.change(input);
+    
+    onChangeTargets.should.have.been.calledWith(
+      match.any, match.any, '10');
+  });
+
+  it('should call onChangeTargets when efficiency is changed', function () {
+    const { efficiency } = recipeTargets.refs,
+          input = findRenderedDOMComponentWithTag(efficiency, 'input');
+
+    input.value = '0.3';
+    Simulate.change(input);
+    
+    onChangeTargets.should.have.been.calledWith(
+      '0.3', match.any, match.any);
   });
 });

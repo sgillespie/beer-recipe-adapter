@@ -11,25 +11,31 @@ import jsdom from 'mocha-jsdom';
 import OriginalRecipePanel from '../../components/OriginalRecipePanel';
 import React from 'react';
 import RecipeTargetsInput from '../../components/RecipeTargetsInput';
+import sinon from 'sinon-chai';
+import 'mocha-sinon';
 
 const should = chai.should();
+chai.use(sinon);
 
 describe('AdjustableRecipe', function () {
   jsdom();
 
   let onAddClick,
       onDeleteClick,
+      onChangeTargets,
       adjustableRecipe;
   const grains = [];
 
   beforeEach(function () {
-    onAddClick = () => true;
-    onDeleteClick = () => true;
+    onAddClick = this.sinon.spy();
+    onDeleteClick = this.sinon.spy();
+    onChangeTargets = this.sinon.spy();
 
     adjustableRecipe = renderIntoDocument(
         <AdjustableRecipe onAddClick={onAddClick}
                           onDeleteClick={onDeleteClick}
-                          grains={grains}/>
+                          onChangeTargets={onChangeTargets}
+      grains={grains}/>
     );
   });
 
@@ -51,13 +57,24 @@ describe('AdjustableRecipe', function () {
     should.exist(originalRecipePanel);
   });
 
+  it('should pass props to RecipeTargetsInput', () => {
+    const recipeTargets = findRenderedComponentWithType(
+      adjustableRecipe, RecipeTargetsInput);
+
+    recipeTargets.props.onChangeTargets();
+    onChangeTargets.should.have.been.called;
+  });
+
   it('should pass props to OriginalRecipePanel', () => {
     const originalRecipePanel = findRenderedComponentWithType(
       adjustableRecipe, OriginalRecipePanel);
 
+    originalRecipePanel.props.onDeleteClick();
+    originalRecipePanel.props.onAddClick();
+    
     originalRecipePanel.props.grains.should.equal(grains);
-    originalRecipePanel.props.onAddClick.should.equal(onAddClick);
-    originalRecipePanel.props.onDeleteClick.should.equal(onDeleteClick);
+    onDeleteClick.should.have.been.called;
+    onAddClick.should.have.been.called;
   });
 
   it('renders AdjustedRecipePanel', () => {

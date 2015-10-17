@@ -1,4 +1,4 @@
-import { addGrain, deleteGrain } from '../actions';
+import { addGrain, deleteGrain, updateTargets } from '../actions';
 import compose from 'lodash/function/compose';
 import AdjustableRecipe from '../components/AdjustableRecipe';
 import { connect } from 'react-redux';
@@ -20,7 +20,8 @@ export const App = React.createClass({
           <NavBar/>
           <AdjustableRecipe grains={this.props.grains}
                             onAddClick={compose(dispatch, addGrain)}
-                            onDeleteClick={compose(dispatch, deleteGrain)} />
+                            onDeleteClick={compose(dispatch, deleteGrain)}
+                            onChangeTargets={compose(dispatch, updateTargets)}/>
         </div>
     );
   },

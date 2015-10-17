@@ -20,20 +20,24 @@ describe('Containers', function () {
   jsdom();
 
   describe('App', function () {
-    const grains = [
-          {
+    const grains = [{
             id: 0,
             type: 'type',
             weight: 9,
-          },
-    ];
+          }],
+          targets = {
+            efficiency: 0.7,
+            gravity: 1.045,
+            volume: 6.5,
+          };
 
     let recipeApp, dispatch;
     beforeEach(function () {
       dispatch = this.sinon.spy();
       recipeApp = renderIntoDocument(
           <App grains={grains}
-               dispatch={dispatch}/>
+               dispatch={dispatch}
+               targets={targets}/>
       );
     });
 
@@ -51,7 +55,13 @@ describe('Containers', function () {
     it('should pass grains to AdjustableRecipe', function () {
       const adjustableRecipe = findRenderedComponentWithType(
         recipeApp, AdjustableRecipe);
-      adjustableRecipe.props.grains.should.equal(grains);
+      adjustableRecipe.props.grains.should.eql(grains);
+    });
+
+    it('should pass targets to AdjustableRecipe', function () {
+      const adjustableRecipe = findRenderedComponentWithType(
+        recipeApp, AdjustableRecipe);
+      adjustableRecipe.props.targets.should.eql(targets);
     });
 
     it('should call dispatch when onAddClick is called', function () {
@@ -79,7 +89,7 @@ describe('Containers', function () {
   describe('connect', function () {
     const testStore = store({
       targets: {
-        efficienty: 0.7,
+        efficiency: 0.7,
         gravity: 1.055,
         volume: 5,
       },
@@ -104,7 +114,7 @@ describe('Containers', function () {
 
 
     // TODO[sgillespie]: Check targets
-    it('connect should map state to props', function () {
+    it('connect should map state to grains', function () {
       const adjustableRecipe = findRenderedComponentWithType(
                                  provider, AdjustableRecipe),
             { grains } = adjustableRecipe.props;
@@ -112,6 +122,16 @@ describe('Containers', function () {
       grains[0].id.should.equal(0);
       grains[0].type.should.equal('type');
       grains[0].weight.should.equal(9);
+    });
+
+    it('connect should map state to grains', function () {
+      const adjustableRecipe = findRenderedComponentWithType(
+                                 provider, AdjustableRecipe),
+            { targets } = adjustableRecipe.props;
+
+      targets.efficiency.should.equal(0.7);
+      targets.gravity.should.equal(1.055);
+      targets.volume.should.equal(5);
     });
   });
 });

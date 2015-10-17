@@ -9,6 +9,11 @@ import React, { PropTypes } from 'react';
 export const App = React.createClass({
   propTypes: {
     grains: PropTypes.array.isRequired,
+    targets: PropTypes.shape({
+      efficiency: PropTypes.number.isRequired,
+      gravity: PropTypes.number.isRequired,
+      volume: PropTypes.number.isRequired,
+    }).isRequired,
     dispatch: PropTypes.func.isRequired,
   },
 
@@ -19,6 +24,7 @@ export const App = React.createClass({
         <div>
           <NavBar/>
           <AdjustableRecipe grains={this.props.grains}
+                            targets={this.props.targets}
                             onAddClick={compose(dispatch, addGrain)}
                             onDeleteClick={compose(dispatch, deleteGrain)}
                             onChangeTargets={compose(dispatch, updateTargets)}/>

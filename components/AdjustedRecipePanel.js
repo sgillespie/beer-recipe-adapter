@@ -1,10 +1,15 @@
 import GrainList from './GrainList';
 import { Panel } from 'react-bootstrap';
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 module.exports = React.createClass({
   propTypes: {
-    grains: React.PropTypes.array.isRequired,
+    grains: PropTypes.array.isRequired,
+    targets: PropTypes.shape({
+      efficiency: PropTypes.number.isRequired,
+      gravity: PropTypes.number.isRequired,
+      volume: PropTypes.number.isRequired,
+    }).isRequired,
   },
 
   render: function () {
@@ -12,7 +17,8 @@ module.exports = React.createClass({
 
     return (
         <Panel header={header} bsStyle="primary">
-          <GrainList grains={this.props.grains}/>
+          <GrainList grains={this.props.grains}
+                     targets={this.props.targets}/>
         </Panel>
     );
   },

@@ -6,6 +6,11 @@ import React, { PropTypes } from 'react';
 export default React.createClass({
   propTypes: {
     grains: PropTypes.array.isRequired,
+    targets: PropTypes.shape({
+      efficiency: PropTypes.number.isRequired,
+      gravity: PropTypes.number.isRequired,
+      volume: PropTypes.number.isRequired,
+    }).isRequired,
     onAddClick: PropTypes.func.isRequired,
     onDeleteClick: PropTypes.func.isRequired,
     onChangeTargets: PropTypes.func.isRequired,
@@ -23,7 +28,8 @@ export default React.createClass({
                                onAddClick={this.props.onAddClick}
                                onDeleteClick={this.props.onDeleteClick}/>
 
-          <AdjustedRecipePanel grains={this.props.grains}/>
+        <AdjustedRecipePanel grains={this.props.grains}
+                             targets={this.props.targets}/>
         </div>
     );
   },

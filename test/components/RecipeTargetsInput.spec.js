@@ -19,7 +19,7 @@ describe('RecipeTargetsInput', function () {
   let match,
       onChangeTargets,
       recipeTargets;
-  
+
   beforeEach(function () {
     match = this.sinon.match;
     onChangeTargets = this.sinon.spy();
@@ -76,7 +76,7 @@ describe('RecipeTargetsInput', function () {
 
     input.value = '1.020';
     Simulate.change(input);
-    
+
     onChangeTargets.should.have.been.calledWith(
       match.any, '1.020', match.any);
   });
@@ -87,7 +87,7 @@ describe('RecipeTargetsInput', function () {
 
     input.value = '10';
     Simulate.change(input);
-    
+
     onChangeTargets.should.have.been.calledWith(
       match.any, match.any, '10');
   });
@@ -98,7 +98,7 @@ describe('RecipeTargetsInput', function () {
 
     input.value = '0.3';
     Simulate.change(input);
-    
+
     onChangeTargets.should.have.been.calledWith(
       '0.3', match.any, match.any);
   });

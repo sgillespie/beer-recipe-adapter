@@ -13,23 +13,28 @@ chai.should();
 describe('AdjustedRecipePanel', function () {
   jsdom();
 
-  const grains = [
-        {
+  const grains = [{
           id: 1,
           type: 'someType',
           weight: 9,
-        },
-  ];
+        }],
+        targets = {
+          efficiency: 0.85,
+          gravity: 1.075,
+          volume: 8.5,
+        };
 
   let adjustedRecipe;
   beforeEach(function () {
     adjustedRecipe = renderIntoDocument(
-        <AdjustedRecipePanel grains={grains}/>
+        <AdjustedRecipePanel grains={grains}
+                             targets={targets}/>
     );
   });
 
   it('should pass props to GrainList', function () {
     const grainList = findRenderedComponentWithType(adjustedRecipe, GrainList);
     grainList.props.grains.should.equal(grains);
+    grainList.props.targets.should.equal(targets);
   });
 });

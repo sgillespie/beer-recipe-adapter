@@ -5,7 +5,7 @@ import React, { PropTypes } from 'react';
 export default React.createClass({
   propTypes: {
     grains: PropTypes.array.isRequired,
-    onDeleteClick: PropTypes.func.isRequired,
+    onDeleteClick: PropTypes.func,
   },
 
   render: function () {

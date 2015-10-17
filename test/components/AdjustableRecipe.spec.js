@@ -24,7 +24,12 @@ describe('AdjustableRecipe', function () {
       onDeleteClick,
       onChangeTargets,
       adjustableRecipe;
-  const grains = [];
+  const grains = [],
+        targets = {
+          efficiency: 0.8,
+          gravity: 1.047,
+          volume: 6,
+        };
 
   beforeEach(function () {
     onAddClick = this.sinon.spy();
@@ -35,7 +40,8 @@ describe('AdjustableRecipe', function () {
         <AdjustableRecipe onAddClick={onAddClick}
                           onDeleteClick={onDeleteClick}
                           onChangeTargets={onChangeTargets}
-      grains={grains}/>
+                          grains={grains}
+                          targets={targets}/>
     );
   });
 
@@ -71,7 +77,7 @@ describe('AdjustableRecipe', function () {
 
     originalRecipePanel.props.onDeleteClick();
     originalRecipePanel.props.onAddClick();
-    
+
     originalRecipePanel.props.grains.should.equal(grains);
     onDeleteClick.should.have.been.called;
     onAddClick.should.have.been.called;
@@ -87,5 +93,6 @@ describe('AdjustableRecipe', function () {
     const adjustedRecipePanel = findRenderedComponentWithType(
       adjustableRecipe, AdjustedRecipePanel);
     adjustedRecipePanel.props.grains.should.equal(grains);
+    adjustedRecipePanel.props.targets.should.equal(targets);
   });
 });

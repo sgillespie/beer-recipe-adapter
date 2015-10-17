@@ -5,7 +5,7 @@ module.exports = React.createClass({
   propTypes: {
     onChangeTargets: PropTypes.func.isRequired,
   },
-  
+
   getInitialState: function () {
     return {
       efficiency: 0.7,
@@ -18,7 +18,7 @@ module.exports = React.createClass({
     const efficiency = this.refs.efficiency.getValue(),
           gravity = this.refs.gravity.getValue(),
           volume = this.refs.volume.getValue();
-    
+
     this.setState({
       efficiency,
       gravity,

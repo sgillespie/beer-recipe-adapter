@@ -9,7 +9,7 @@ export default React.createClass({
       weight: PropTypes.number.isRequired,
     }).isRequired,
     percentage: PropTypes.number.isRequired,
-    onDeleteClick: PropTypes.func.isRequired,
+    onDeleteClick: PropTypes.func,
   },
 
   onDeleteClick: function () {

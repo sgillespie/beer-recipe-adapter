@@ -1,4 +1,4 @@
-import { ADD_GRAIN, DELETE_GRAIN } from '../actions';
+import { ADD_GRAIN, DELETE_GRAIN, UPDATE_TARGETS } from '../actions';
 import { combineReducers } from 'redux';
 import u, { omit } from 'updeep';
 import reduce from 'lodash/collection/reduce';
@@ -28,8 +28,15 @@ export default function reducers (state = initialState, action) {
   })(state, action);
 }
 
-function targets (state = {}) {
-  return state;
+function targets (state = {}, action = {}) {
+  const { type } = action;
+
+  switch (type) {
+    case UPDATE_TARGETS:
+      return updateTargets(state, action);
+    default:
+      return state;
+  }
 }
 
 function grains (state = {}, action = {}) {
@@ -65,4 +72,14 @@ function addGrain (state, action) {
 function deleteGrain (state, action) {
   const { id } = action.payload;
   return omit(id, state);
+}
+
+function updateTargets (state, action) {
+  const { efficiency, gravity, volume } = action.payload;
+
+  return u({
+    efficiency,
+    gravity,
+    volume,
+  }, state);
 }

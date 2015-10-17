@@ -1,3 +1,8 @@
+import {
+  ADD_GRAIN,
+  DELETE_GRAIN,
+  UPDATE_TARGETS,
+} from '../../actions';
 import chai from 'chai';
 import { find, findKey, size } from 'lodash';
 import reduce from '../../reducers';
@@ -20,7 +25,7 @@ describe('reducers', function () {
 
   it('should handle ADD_GRAIN', function () {
     const { grains } = reduce({}, {
-            type: 'ADD_GRAIN',
+            type: ADD_GRAIN,
             payload: {
               type: 'grain',
               weight: 10,
@@ -49,7 +54,7 @@ describe('reducers', function () {
           },
 
           state = reduce(initialState, {
-            type: 'DELETE_GRAIN',
+            type: DELETE_GRAIN,
             payload: {
               id: 0,
             },
@@ -58,5 +63,30 @@ describe('reducers', function () {
           { grains } = state;
 
     grains.should.be.empty;
+  });
+
+  it('should handle UPDATE_TARGETS', function () {
+    const initialState = {
+            targets: {
+              efficiency: 0.5,
+              gravity: 1.050,
+              volume: 3.5,
+            },
+          },
+
+          state = reduce(initialState, {
+            type: UPDATE_TARGETS,
+            payload: {
+              efficiency: 0.6,
+              gravity: 1.040,
+              volume: 3,
+            },
+          }),
+
+          { targets } = state;
+
+    targets.efficiency.should.equal(0.6);
+    targets.gravity.should.equal(1.040);
+    targets.volume.should.equal(3);
   });
 });

@@ -15,17 +15,44 @@ module.exports = React.createClass({
   },
 
   onChange: function () {
-    const efficiency = this.refs.efficiency.getValue(),
-          gravity = this.refs.gravity.getValue(),
-          volume = this.refs.volume.getValue();
+    const efficiency = parseFloat(this.refs.efficiency.getValue()),
+          gravity = parseFloat(this.refs.gravity.getValue()),
+          volume = parseFloat(this.refs.volume.getValue()),
+          state = {
+            efficiency,
+            gravity,
+            volume,
+          };
 
-    this.setState({
-      efficiency,
-      gravity,
-      volume,
-    });
+    this.setState(state);
 
-    this.props.onChangeTargets(efficiency, gravity, volume);
+    if (this.getValidationState(state).isValid) {
+      this.props.onChangeTargets(efficiency, gravity, volume);
+    }
+  },
+
+  getValidationState: function (state) {
+    const { efficiency, gravity, volume } = state,
+          isEfficiencyValid = !isNaN(efficiency) &&
+            efficiency > 0 &&
+            efficiency <= 1,
+          isGravityValid = !isNaN(gravity) &&
+            gravity >= 1 &&
+            gravity <= 2,
+          isVolumeValid = !isNaN(volume);
+
+    return {
+      isValid: isEfficiencyValid && isGravityValid && isVolumeValid,
+      efficiency: {
+        isValid: isEfficiencyValid,
+      },
+      gravity: {
+        isValid: isGravityValid,
+      },
+      volume: {
+        isValid: isVolumeValid,
+      },
+    };
   },
 
   render: function () {
@@ -36,7 +63,9 @@ module.exports = React.createClass({
                    label="Preboil Gravity (SG)"
                    ref="gravity"
                    onChange={this.onChange}
-                   defaultValue={this.state.gravity}/>
+                   bsStyle={this.getValidationState(this.state).gravity.isValid ? 'success' : 'error'}
+                   defaultValue={this.state.gravity}
+                   hasFeedback/>
           </Col>
           <Col xs={3}>
             <Input type="text"
@@ -44,7 +73,9 @@ module.exports = React.createClass({
                    placeholder="6.5"
                    ref="volume"
                    onChange={this.onChange}
-                   defaultValue={this.state.volume}/>
+                   defaultValue={this.state.volume}
+                   bsStyle={this.getValidationState(this.state).volume.isValid ? 'success' : 'error'}
+                   hasFeedback/>
           </Col>
           <Col xs={3}>
             <Input type="text"
@@ -53,7 +84,8 @@ module.exports = React.createClass({
                    ref="efficiency"
                    onChange={this.onChange}
                    defaultValue={this.state.efficiency}
-                   addonAfter="%"/>
+                   bsStyle={this.getValidationState(this.state).efficiency.isValid ? 'success' : 'error'}
+                   hasFeedback/>
           </Col>
         </Row>
     );

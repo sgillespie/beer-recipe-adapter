@@ -25,7 +25,7 @@ export default React.createClass({
   },
 
   getValidationState: function (value) {
-    const _value = value === undefined ? state.value : value,
+    const _value = value === undefined ? this.state.value : value,
           result = !isNaN(_value) && _value > 0 && _value <= 1;
 
     return result ? 'success' : 'error';

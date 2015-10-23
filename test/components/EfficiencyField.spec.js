@@ -17,12 +17,10 @@ describe('EfficiencyField', function () {
   jsdom();
 
   const value = 0.7;
-  let match,
-      onChange,
+  let onChange,
       efficiencyField;
 
   beforeEach(function () {
-    match = this.sinon.match;
     onChange = this.sinon.spy();
     efficiencyField = renderIntoDocument(
         <EfficiencyField value={value}

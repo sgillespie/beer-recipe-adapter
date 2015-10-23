@@ -1,25 +1,25 @@
+import EfficiencyField from './EfficiencyField';
 import { Input, Col, Row } from 'react-bootstrap';
 import React, { PropTypes } from 'react';
 
 module.exports = React.createClass({
   propTypes: {
+    onChangeEfficiency: PropTypes.func.isRequired,
     onChangeTargets: PropTypes.func.isRequired,
   },
 
   getInitialState: function () {
     return {
-      efficiency: 0.7,
       gravity: 1.045,
       volume: 6.5,
     };
   },
 
   onChange: function () {
-    const efficiency = parseFloat(this.refs.efficiency.getValue()),
+    const efficiency = 0.7, // XXX: CHANGEME
           gravity = parseFloat(this.refs.gravity.getValue()),
           volume = parseFloat(this.refs.volume.getValue()),
           state = {
-            efficiency,
             gravity,
             volume,
           };
@@ -32,20 +32,14 @@ module.exports = React.createClass({
   },
 
   getValidationState: function (state) {
-    const { efficiency, gravity, volume } = state,
-          isEfficiencyValid = !isNaN(efficiency) &&
-            efficiency > 0 &&
-            efficiency <= 1,
+    const { gravity, volume } = state,
           isGravityValid = !isNaN(gravity) &&
             gravity >= 1 &&
             gravity <= 2,
           isVolumeValid = !isNaN(volume);
 
     return {
-      isValid: isEfficiencyValid && isGravityValid && isVolumeValid,
-      efficiency: {
-        isValid: isEfficiencyValid,
-      },
+      isValid: isGravityValid && isVolumeValid,
       gravity: {
         isValid: isGravityValid,
       },
@@ -78,14 +72,9 @@ module.exports = React.createClass({
                    hasFeedback/>
           </Col>
           <Col xs={3}>
-            <Input type="text"
-                   label="Extract Efficiency"
-                   placeholder="60"
-                   ref="efficiency"
-                   onChange={this.onChange}
-                   defaultValue={this.state.efficiency}
-                   bsStyle={this.getValidationState(this.state).efficiency.isValid ? 'success' : 'error'}
-                   hasFeedback/>
+            <EfficiencyField onChange={this.props.onChangeEfficiency}
+                             value={1}
+                             ref="efficiency"/>
           </Col>
         </Row>
     );

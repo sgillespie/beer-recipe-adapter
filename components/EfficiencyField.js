@@ -1,4 +1,4 @@
-import { Input, Col, Row } from 'react-bootstrap';
+import { Input } from 'react-bootstrap';
 import React, { PropTypes } from 'react';
 
 export default React.createClass({

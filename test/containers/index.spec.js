@@ -78,6 +78,13 @@ describe('Containers', function () {
       dispatch.should.be.calledWithMatch({ type: 'DELETE_GRAIN' });
     });
 
+    it('should call dispatch when onChangeEfficiency is called', function () {
+      const adjustableRecipe = findRenderedComponentWithType(
+        recipeApp, AdjustableRecipe);
+      adjustableRecipe.props.onChangeEfficiency(0.75);
+      dispatch.should.have.been.calledWithMatch({ type: 'UPDATE_EFFICIENCY' });
+    });
+
     it('should call dispatch when onChangeTargets is called', function () {
       const adjustableRecipe = findRenderedComponentWithType(
         recipeApp, AdjustableRecipe);

@@ -13,6 +13,7 @@ export default React.createClass({
     }).isRequired,
     onAddClick: PropTypes.func.isRequired,
     onDeleteClick: PropTypes.func.isRequired,
+    onChangeEfficiency: PropTypes.func.isRequired,
     onChangeTargets: PropTypes.func.isRequired,
   },
 
@@ -23,7 +24,9 @@ export default React.createClass({
             <h1>Beer Recipe Adapter <small>Adapt any recipe to fit your needs</small></h1>
           </div>
 
-          <RecipeTargetsInput onChangeTargets={this.props.onChangeTargets}/>
+          <RecipeTargetsInput onChangeEfficiency={this.props.onChangeEfficiency}
+                              onChangeTargets={this.props.onChangeTargets}/>
+
           <OriginalRecipePanel grains={this.props.grains}
                                onAddClick={this.props.onAddClick}
                                onDeleteClick={this.props.onDeleteClick}/>

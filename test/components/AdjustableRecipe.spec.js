@@ -22,6 +22,7 @@ describe('AdjustableRecipe', function () {
 
   let onAddClick,
       onDeleteClick,
+      onChangeEfficiency,
       onChangeTargets,
       adjustableRecipe;
   const grains = [],
@@ -34,11 +35,13 @@ describe('AdjustableRecipe', function () {
   beforeEach(function () {
     onAddClick = this.sinon.spy();
     onDeleteClick = this.sinon.spy();
+    onChangeEfficiency = this.sinon.spy();
     onChangeTargets = this.sinon.spy();
 
     adjustableRecipe = renderIntoDocument(
         <AdjustableRecipe onAddClick={onAddClick}
                           onDeleteClick={onDeleteClick}
+                          onChangeEfficiency={onChangeEfficiency}
                           onChangeTargets={onChangeTargets}
                           grains={grains}
                           targets={targets}/>
@@ -66,6 +69,9 @@ describe('AdjustableRecipe', function () {
   it('should pass props to RecipeTargetsInput', () => {
     const recipeTargets = findRenderedComponentWithType(
       adjustableRecipe, RecipeTargetsInput);
+
+    recipeTargets.props.onChangeEfficiency();
+    onChangeEfficiency.should.have.been.called;
 
     recipeTargets.props.onChangeTargets();
     onChangeTargets.should.have.been.called;

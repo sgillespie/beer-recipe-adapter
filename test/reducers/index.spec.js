@@ -1,6 +1,7 @@
 import {
   ADD_GRAIN,
   DELETE_GRAIN,
+  UPDATE_EFFICIENCY,
   UPDATE_TARGETS,
 } from '../../actions';
 import chai from 'chai';
@@ -63,6 +64,29 @@ describe('reducers', function () {
           { grains } = state;
 
     grains.should.be.empty;
+  });
+
+  it('should handle UPDATE_EFFICIENCY', function () {
+    const initialState = {
+            targets: {
+              efficiency: 0.5,
+              gravity: 1.050,
+              volume: 3.5,
+            },
+          },
+
+          state = reduce(initialState, {
+            type: UPDATE_EFFICIENCY,
+            payload: {
+              efficiency: 0.6,
+            },
+          }),
+
+          { targets } = state;
+
+    targets.efficiency.should.equal(0.6);
+    targets.gravity.should.equal(1.050);
+    targets.volume.should.equal(3.5);
   });
 
   it('should handle UPDATE_TARGETS', function () {

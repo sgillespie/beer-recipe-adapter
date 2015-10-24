@@ -3,6 +3,8 @@ import {
   addGrain,
   DELETE_GRAIN,
   deleteGrain,
+  UPDATE_EFFICIENCY,
+  updateEfficiency,
   UPDATE_TARGETS,
   updateTargets,
 } from '../../actions';
@@ -33,5 +35,11 @@ describe('actions', function () {
     payload.efficiency.should.equal(0.7);
     payload.gravity.should.equal(1.045);
     payload.volume.should.equal(6.5);
+  });
+
+  it('should create UPDATE_EFFICIENCY action', function () {
+    const { payload, type } = updateEfficiency(0.5);
+    type.should.equal(UPDATE_EFFICIENCY);
+    payload.efficiency.should.equal(0.5);
   });
 });

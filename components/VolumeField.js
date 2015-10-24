@@ -14,39 +14,30 @@ export default React.createClass({
   },
 
   onChange: function () {
-    const value = parseFloat(this.refs.efficiency.getValue()),
-          decimalValue = this.toDecimal(value);
+    const value = parseFloat(this.refs.volume.getValue());
 
     this.setState({
-      value: decimalValue,
+      value,
     });
 
     if (this.getValidationState(value) === 'success') {
-      this.props.onChange(decimalValue);
+      this.props.onChange(value);
     }
   },
 
   getValidationState: function (value) {
-    const result = !isNaN(value) && value > 0 && value <= 100;
+    const result = !isNaN(value) && value > 0;
     return result ? 'success' : 'error';
-  },
-
-  toPercentage: function (value) {
-    return value * 100;
-  },
-
-  toDecimal: function (value) {
-    return value / 100;
   },
 
   render: function () {
     return (
-        <Input type="text"
-               label="Extract Efficiency"
-               ref="efficiency"
+        <Input bsStyle={this.getValidationState(this.state.value)}
+               defaultValue={this.props.value}
+               label="Preboil Volume (Gallons)"
                onChange={this.onChange}
-               defaultValue={this.toPercentage(this.state.value)}
-               bsStyle={this.getValidationState(this.state.value)}
+               ref="volume"
+               type="text"
                hasFeedback/>
     );
   },

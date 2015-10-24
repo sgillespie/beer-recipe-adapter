@@ -1,79 +1,37 @@
 import EfficiencyField from './EfficiencyField';
+import GravityField from './GravityField';
 import { Input, Col, Row } from 'react-bootstrap';
 import React, { PropTypes } from 'react';
+import VolumeField from './VolumeField';
 
 module.exports = React.createClass({
   propTypes: {
     onChangeEfficiency: PropTypes.func.isRequired,
-    onChangeTargets: PropTypes.func.isRequired,
-  },
-
-  getInitialState: function () {
-    return {
-      gravity: 1.045,
-      volume: 6.5,
-    };
-  },
-
-  onChange: function () {
-    const efficiency = 0.7, // XXX: CHANGEME
-          gravity = parseFloat(this.refs.gravity.getValue()),
-          volume = parseFloat(this.refs.volume.getValue()),
-          state = {
-            gravity,
-            volume,
-          };
-
-    this.setState(state);
-
-    if (this.getValidationState(state).isValid) {
-      this.props.onChangeTargets(efficiency, gravity, volume);
-    }
-  },
-
-  getValidationState: function (state) {
-    const { gravity, volume } = state,
-          isGravityValid = !isNaN(gravity) &&
-            gravity >= 1 &&
-            gravity <= 2,
-          isVolumeValid = !isNaN(volume);
-
-    return {
-      isValid: isGravityValid && isVolumeValid,
-      gravity: {
-        isValid: isGravityValid,
-      },
-      volume: {
-        isValid: isVolumeValid,
-      },
-    };
+    onChangeGravity: PropTypes.func.isRequired,
+    onChangeVolume: PropTypes.func.isRequired,
+    targets: PropTypes.shape({
+      efficiency: PropTypes.number.isRequired,
+      gravity: PropTypes.number.isRequired,
+      volume: PropTypes.number.isRequired,
+    }).isRequired,
   },
 
   render: function () {
     return (
         <Row>
           <Col xs={3}>
-            <Input type="text"
-                   label="Preboil Gravity (SG)"
-                   ref="gravity"
-                   onChange={this.onChange}
-                   bsStyle={this.getValidationState(this.state).gravity.isValid ? 'success' : 'error'}
-                   defaultValue={this.state.gravity}
-                   hasFeedback/>
+            <GravityField onChange={this.props.onChangeGravity}
+                          ref="gravity"
+                          value={this.props.targets.gravity}/>
           </Col>
           <Col xs={3}>
-            <Input type="text"
-                   label="Preboil Volume (Gallons)"
-                   placeholder="6.5"
-                   ref="volume"
-                   onChange={this.onChange}
-                   defaultValue={this.state.volume}
-                   bsStyle={this.getValidationState(this.state).volume.isValid ? 'success' : 'error'}
-                   hasFeedback/>
+            <VolumeField onChange={this.props.onChangeVolume}
+                         ref="volume"
+                         value={this.props.targets.volume}/>
           </Col>
           <Col xs={3}>
             <EfficiencyField onChange={this.props.onChangeEfficiency}
-                             value={1}
+                             value={this.props.targets.efficiency}
                              ref="efficiency"/>
           </Col>
         </Row>

@@ -23,7 +23,8 @@ describe('AdjustableRecipe', function () {
   let onAddClick,
       onDeleteClick,
       onChangeEfficiency,
-      onChangeTargets,
+      onChangeGravity,
+      onChangeVolume,
       adjustableRecipe;
   const grains = [],
         targets = {
@@ -36,13 +37,15 @@ describe('AdjustableRecipe', function () {
     onAddClick = this.sinon.spy();
     onDeleteClick = this.sinon.spy();
     onChangeEfficiency = this.sinon.spy();
-    onChangeTargets = this.sinon.spy();
+    onChangeGravity = this.sinon.spy();
+    onChangeVolume = this.sinon.spy();
 
     adjustableRecipe = renderIntoDocument(
         <AdjustableRecipe onAddClick={onAddClick}
                           onDeleteClick={onDeleteClick}
                           onChangeEfficiency={onChangeEfficiency}
-                          onChangeTargets={onChangeTargets}
+                          onChangeGravity={onChangeGravity}
+                          onChangeVolume={onChangeVolume}
                           grains={grains}
                           targets={targets}/>
     );
@@ -71,10 +74,14 @@ describe('AdjustableRecipe', function () {
       adjustableRecipe, RecipeTargetsInput);
 
     recipeTargets.props.onChangeEfficiency();
-    onChangeEfficiency.should.have.been.called;
+    recipeTargets.props.onChangeGravity();
+    recipeTargets.props.onChangeVolume();
 
-    recipeTargets.props.onChangeTargets();
-    onChangeTargets.should.have.been.called;
+    onChangeEfficiency.should.have.been.called;
+    onChangeGravity.should.have.been.called;
+    onChangeVolume.should.have.been.called;
+
+    recipeTargets.props.targets.should.eql(targets);
   });
 
   it('should pass props to OriginalRecipePanel', () => {

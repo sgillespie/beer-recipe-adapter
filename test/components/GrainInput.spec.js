@@ -1,8 +1,9 @@
 import { Button } from 'react-bootstrap';
 import chai from 'chai';
+import { findDOMNode } from 'react-dom';
 import GrainInput from '../../components/GrainInput';
 import jsdom from 'mocha-jsdom';
-import React, { findDOMNode } from 'react';
+import React from 'react';
 import {
   renderIntoDocument,
   scryRenderedComponentsWithType,

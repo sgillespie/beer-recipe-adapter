@@ -1,17 +1,17 @@
 import chai from 'chai';
 import EfficiencyField from '../../components/EfficiencyField';
+import GravityField from '../../components/GravityField';
 import jsdom from 'mocha-jsdom';
 import RecipeTargetsInput from '../../components/RecipeTargetsInput';
 import React from 'react';
 import {
   findRenderedComponentWithType,
-  findRenderedDOMComponentWithTag,
   renderIntoDocument,
-  Simulate,
 } from 'react-addons-test-utils';
 import { simulateChange } from '../test-utils';
 import sinon from 'sinon-chai';
 import 'mocha-sinon';
+import VolumeField from '../../components/VolumeField';
 
 const should = chai.should();
 chai.use(sinon);
@@ -19,43 +19,56 @@ chai.use(sinon);
 describe('RecipeTargetsInput', function () {
   jsdom();
 
+  const targets = {
+    efficiency: 0.6,
+    gravity: 1.033,
+    volume: 7.65,
+  };
+
   let match,
       onChangeEfficiency,
-      onChangeTargets,
+      onChangeGravity,
+      onChangeVolume,
       recipeTargets;
 
   beforeEach(function () {
     match = this.sinon.match;
-    onChangeTargets = this.sinon.spy();
     onChangeEfficiency = this.sinon.spy();
+    onChangeGravity = this.sinon.spy();
+    onChangeVolume = this.sinon.spy();
 
     recipeTargets = renderIntoDocument(
-        <RecipeTargetsInput onChangeTargets={onChangeTargets}
-                            onChangeEfficiency={onChangeEfficiency}/>
+        <RecipeTargetsInput onChangeEfficiency={onChangeEfficiency}
+                            onChangeGravity={onChangeGravity}
+                            onChangeVolume={onChangeVolume}
+                            targets={targets}/>
     );
   });
 
-  it('contains SG input', function () {
-    recipeTargets.refs.gravity.props.type.should.equal('text');
+  it('should pass targets values to input fields', function () {
+    recipeTargets.refs.efficiency.props.value.should.equal(0.6);
+    recipeTargets.refs.gravity.props.value.should.equal(1.033);
+    recipeTargets.refs.volume.props.value.should.equal(7.65);
   });
 
-  it('contains volume input', function () {
-    recipeTargets.refs.volume.props.type.should.equal('text');
+  it('contains gravity field', function () {
+    const gravity = findRenderedComponentWithType(recipeTargets, GravityField);
+    should.exist(gravity);
   });
 
-  it('contains efficiency input', function () {
+  it('contains volume field', function () {
+    const volume = findRenderedComponentWithType(recipeTargets, VolumeField);
+    should.exist(volume);
+  });
+
+  it('contains efficiency field', function () {
     const efficiency = findRenderedComponentWithType(recipeTargets, EfficiencyField);
     should.exist(efficiency);
   });
 
-  it('should update state when gravity is changed', function () {
-    simulateChange(recipeTargets.refs.gravity, '1.033');
-    recipeTargets.state.gravity.should.equal(1.033);
-  });
-
-  it('should update state when volume is changed', function () {
-    simulateChange(recipeTargets.refs.volume, '3');
-    recipeTargets.state.volume.should.equal(3);
+  it('should pass onChangeGravity to gravity', function () {
+    recipeTargets.refs.gravity.props.onChange(1.022);
+    onChangeGravity.should.have.been.calledWith(1.022);
   });
 
   it('should pass onEfficiencyChanged to efficiency', function () {
@@ -63,64 +76,8 @@ describe('RecipeTargetsInput', function () {
     onChangeEfficiency.should.have.been.calledWith('1');
   });
 
-  it('should call onChangeTargets when gravity is changed', function () {
-    simulateChange(recipeTargets.refs.gravity, '1.020');
-    onChangeTargets.should.have.been.calledWith(
-      match.any, 1.02, match.any);
-  });
-
-  it('should call onChangeTargets when volume is changed', function () {
-    simulateChange(recipeTargets.refs.volume, '10');
-    onChangeTargets.should.have.been.calledWith(
-      match.any, match.any, 10);
-  });
-
-  it('should not call onChangeTarget with invalid gravity', function () {
-    const { gravity } = recipeTargets.refs;
-
-    simulateChange(gravity, 'Test');
-    simulateChange(gravity, '0.5');
-    simulateChange(gravity, '2.5');
-
-    onChangeTargets.should.not.have.been.called;
-  });
-
-  it('should not call onChangeTarget with invalid volume', function () {
-    simulateChange(recipeTargets.refs.volume, 'Test');
-    onChangeTargets.should.not.have.been.called;
-  });
-
-  it('should not call onChangeTarget with invalid efficiency', function () {
-    const { efficiency } = recipeTargets.refs;
-
-    simulateChange(efficiency, 'Test');
-    simulateChange(efficiency, '0');
-    simulateChange(efficiency, '120');
-
-    onChangeTargets.should.not.have.been.called;
-  });
-
-  it('gravity input should give feedback', function () {
-    const { gravity } = recipeTargets.refs;
-
-    gravity.props.bsStyle.should.equal('success');
-
-    simulateChange(gravity, 'Test');
-    gravity.props.bsStyle.should.equal('error');
-
-    simulateChange(gravity, 1.045);
-    gravity.props.bsStyle.should.equal('success');
-  });
-
-  it('volume input should give feedback', function () {
-    const { volume } = recipeTargets.refs;
-
-    volume.props.bsStyle.should.equal('success');
-
-    simulateChange(volume, 'Test');
-    volume.props.bsStyle.should.equal('error');
-
-    simulateChange(volume, 5);
-    volume.props.bsStyle.should.equal('success');
+  it('should pass onVolumeChanged to volume', function () {
+    recipeTargets.refs.volume.props.onChange(5.25);
+    onChangeVolume.should.have.been.calledWith(5.25);
   });
 });

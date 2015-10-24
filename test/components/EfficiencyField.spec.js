@@ -2,11 +2,8 @@ import chai from 'chai';
 import jsdom from 'mocha-jsdom';
 import EfficiencyField from '../../components/EfficiencyField';
 import React from 'react';
-import {
-  findRenderedDOMComponentWithTag,
-  renderIntoDocument,
-  Simulate,
-} from 'react-addons-test-utils';
+import { renderIntoDocument } from 'react-addons-test-utils';
+import { simulateChange } from '../test-utils';
 import sinon from 'sinon-chai';
 import 'mocha-sinon';
 
@@ -30,6 +27,10 @@ describe('EfficiencyField', function () {
 
   it('contains input', function () {
     efficiencyField.refs.efficiency.props.type.should.equal('text');
+  });
+
+  it('should have label', function () {
+    efficiencyField.refs.efficiency.props.label.should.equal('Extract Efficiency');
   });
 
   it('should convert decimal to percentage', function () {
@@ -58,6 +59,7 @@ describe('EfficiencyField', function () {
   it('should give feedback', function () {
     const { efficiency } = efficiencyField.refs;
 
+    efficiency.props.hasFeedback.should.be.true;
     efficiency.props.bsStyle.should.equal('success');
 
     simulateChange(efficiencyField, 'Test');
@@ -67,10 +69,3 @@ describe('EfficiencyField', function () {
     efficiency.props.bsStyle.should.equal('success');
   });
 });
-
-function simulateChange (component, value) {
-  const input = findRenderedDOMComponentWithTag(component, 'input');
-
-  input.value = value;
-  Simulate.change(input);
-}

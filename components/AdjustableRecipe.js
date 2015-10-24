@@ -14,7 +14,8 @@ export default React.createClass({
     onAddClick: PropTypes.func.isRequired,
     onDeleteClick: PropTypes.func.isRequired,
     onChangeEfficiency: PropTypes.func.isRequired,
-    onChangeTargets: PropTypes.func.isRequired,
+    onChangeGravity: PropTypes.func.isRequired,
+    onChangeVolume: PropTypes.func.isRequired,
   },
 
   render: function () {
@@ -24,15 +25,17 @@ export default React.createClass({
             <h1>Beer Recipe Adapter <small>Adapt any recipe to fit your needs</small></h1>
           </div>
 
-          <RecipeTargetsInput onChangeEfficiency={this.props.onChangeEfficiency}
-                              onChangeTargets={this.props.onChangeTargets}/>
+          <RecipeTargetsInput targets={this.props.targets}
+                              onChangeEfficiency={this.props.onChangeEfficiency}
+                              onChangeGravity={this.props.onChangeGravity}
+                              onChangeVolume={this.props.onChangeVolume}/>
 
           <OriginalRecipePanel grains={this.props.grains}
                                onAddClick={this.props.onAddClick}
                                onDeleteClick={this.props.onDeleteClick}/>
 
-        <AdjustedRecipePanel grains={this.props.grains}
-                             targets={this.props.targets}/>
+          <AdjustedRecipePanel grains={this.props.grains}
+                               targets={this.props.targets}/>
         </div>
     );
   },

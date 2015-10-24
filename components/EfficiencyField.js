@@ -14,21 +14,29 @@ export default React.createClass({
   },
 
   onChange: function () {
-    const value = parseFloat(this.refs.efficiency.getValue());
+    const value = parseFloat(this.refs.efficiency.getValue()),
+          decimalValue = this.toDecimal(value);
+
     this.setState({
-      value,
+      value: decimalValue,
     });
 
     if (this.getValidationState(value) === 'success') {
-      this.props.onChange(value);
+      this.props.onChange(decimalValue);
     }
   },
 
   getValidationState: function (value) {
-    const _value = value === undefined ? this.state.value : value,
-          result = !isNaN(_value) && _value > 0 && _value <= 1;
-
+    const result = !isNaN(value) && value > 0 && value <= 100;
     return result ? 'success' : 'error';
+  },
+
+  toPercentage: function (value) {
+    return value * 100;
+  },
+
+  toDecimal: function (value) {
+    return value / 100;
   },
 
   render: function () {
@@ -38,7 +46,7 @@ export default React.createClass({
                placeholder="60"
                ref="efficiency"
                onChange={this.onChange}
-               defaultValue={this.state.value}
+               defaultValue={this.toPercentage(this.state.value)}
                bsStyle={this.getValidationState(this.state.value)}
                hasFeedback/>
     );

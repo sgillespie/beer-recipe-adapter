@@ -32,13 +32,18 @@ describe('EfficiencyField', function () {
     efficiencyField.refs.efficiency.props.type.should.equal('text');
   });
 
+  it('should convert decimal to percentage', function () {
+    efficiencyField.state.value.should.equal(0.7);
+    efficiencyField.refs.efficiency.props.defaultValue.should.equal(70);
+  });
+
   it('should update state when changed', function () {
-    simulateChange(efficiencyField, '1');
+    simulateChange(efficiencyField, '100');
     efficiencyField.state.value.should.equal(1);
   });
 
   it('should call onChange when changed', function () {
-    simulateChange(efficiencyField, '0.3');
+    simulateChange(efficiencyField, '30');
     onChange.should.have.been.calledWith(0.3);
   });
 

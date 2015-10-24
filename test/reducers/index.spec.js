@@ -25,7 +25,16 @@ describe('reducers', function () {
   });
 
   it('should handle ADD_GRAIN', function () {
-    const { grains } = reduce({}, {
+    const initialState = {
+            grains: {
+              0: {
+                id: 0,
+                type: 'grain',
+                weight: 10,
+              },
+            },
+          },
+          { grains } = reduce(initialState, {
             type: ADD_GRAIN,
             payload: {
               type: 'grain',
@@ -37,7 +46,7 @@ describe('reducers', function () {
           grain = grains[index];
 
 
-    size(grains).should.equal(1);
+    size(grains).should.equal(2);
     grain.id.toString().should.equal(index);
     grain.type.should.equal('grain');
     grain.weight.should.equal(10);

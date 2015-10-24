@@ -9,6 +9,7 @@ import {
   renderIntoDocument,
   Simulate,
 } from 'react-addons-test-utils';
+import { simulateChange } from '../test-utils';
 import sinon from 'sinon-chai';
 import 'mocha-sinon';
 
@@ -123,10 +124,3 @@ describe('RecipeTargetsInput', function () {
     volume.props.bsStyle.should.equal('success');
   });
 });
-
-function simulateChange (component, value) {
-  const input = findRenderedDOMComponentWithTag(component, 'input');
-
-  input.value = value;
-  Simulate.change(input);
-}

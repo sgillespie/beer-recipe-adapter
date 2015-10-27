@@ -10,7 +10,7 @@ import {
 import jsdom from 'mocha-jsdom';
 import OriginalRecipePanel from '../../components/OriginalRecipePanel';
 import React from 'react';
-import RecipeTargetsInput from '../../components/RecipeTargetsInput';
+import RecipeTargets from '../../components/RecipeTargets';
 import sinon from 'sinon-chai';
 import 'mocha-sinon';
 
@@ -57,9 +57,9 @@ describe('AdjustableRecipe', function () {
     findDOMNode(header).textContent.should.not.be.empty;
   });
 
-  it('renders RecipeTargetsInput', () => {
+  it('renders RecipeTargets', () => {
     const recipeTargets = findRenderedComponentWithType(
-      adjustableRecipe, RecipeTargetsInput);
+      adjustableRecipe, RecipeTargets);
     should.exist(recipeTargets);
   });
 
@@ -69,9 +69,9 @@ describe('AdjustableRecipe', function () {
     should.exist(originalRecipePanel);
   });
 
-  it('should pass props to RecipeTargetsInput', () => {
+  it('should pass props to RecipeTargets', () => {
     const recipeTargets = findRenderedComponentWithType(
-      adjustableRecipe, RecipeTargetsInput);
+      adjustableRecipe, RecipeTargets);
 
     recipeTargets.props.onChangeEfficiency();
     recipeTargets.props.onChangeGravity();

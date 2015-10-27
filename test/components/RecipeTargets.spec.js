@@ -2,7 +2,7 @@ import chai from 'chai';
 import EfficiencyField from '../../components/EfficiencyField';
 import GravityField from '../../components/GravityField';
 import jsdom from 'mocha-jsdom';
-import RecipeTargetsInput from '../../components/RecipeTargetsInput';
+import RecipeTargets from '../../components/RecipeTargets';
 import React from 'react';
 import {
   findRenderedComponentWithType,
@@ -16,7 +16,7 @@ import VolumeField from '../../components/VolumeField';
 const should = chai.should();
 chai.use(sinon);
 
-describe('RecipeTargetsInput', function () {
+describe('RecipeTargets', function () {
   jsdom();
 
   const targets = {
@@ -38,10 +38,10 @@ describe('RecipeTargetsInput', function () {
     onChangeVolume = this.sinon.spy();
 
     recipeTargets = renderIntoDocument(
-        <RecipeTargetsInput onChangeEfficiency={onChangeEfficiency}
-                            onChangeGravity={onChangeGravity}
-                            onChangeVolume={onChangeVolume}
-                            targets={targets}/>
+        <RecipeTargets onChangeEfficiency={onChangeEfficiency}
+                       onChangeGravity={onChangeGravity}
+                       onChangeVolume={onChangeVolume}
+                       targets={targets}/>
     );
   });
 

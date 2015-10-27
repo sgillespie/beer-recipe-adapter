@@ -1,6 +1,6 @@
 import AdjustedRecipePanel from './AdjustedRecipePanel';
 import OriginalRecipePanel from './OriginalRecipePanel';
-import RecipeTargetsInput from './RecipeTargetsInput';
+import RecipeTargets from './RecipeTargets';
 import React, { PropTypes } from 'react';
 
 export default React.createClass({
@@ -25,10 +25,10 @@ export default React.createClass({
             <h1>Beer Recipe Adapter <small>Adapt any recipe to fit your needs</small></h1>
           </div>
 
-          <RecipeTargetsInput targets={this.props.targets}
-                              onChangeEfficiency={this.props.onChangeEfficiency}
-                              onChangeGravity={this.props.onChangeGravity}
-                              onChangeVolume={this.props.onChangeVolume}/>
+          <RecipeTargets targets={this.props.targets}
+                         onChangeEfficiency={this.props.onChangeEfficiency}
+                         onChangeGravity={this.props.onChangeGravity}
+                         onChangeVolume={this.props.onChangeVolume}/>
 
           <OriginalRecipePanel grains={this.props.grains}
                                onAddClick={this.props.onAddClick}

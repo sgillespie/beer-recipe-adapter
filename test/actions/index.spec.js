@@ -5,6 +5,10 @@ import {
   deleteGrain,
   UPDATE_EFFICIENCY,
   updateEfficiency,
+  UPDATE_GRAVITY,
+  updateGravity,
+  UPDATE_VOLUME,
+  updateVolume,
   UPDATE_TARGETS,
   updateTargets,
 } from '../../actions';
@@ -41,5 +45,17 @@ describe('actions', function () {
     const { payload, type } = updateEfficiency(0.5);
     type.should.equal(UPDATE_EFFICIENCY);
     payload.efficiency.should.equal(0.5);
+  });
+
+  it('should create UPDATE_GRAVITY action', function () {
+    const { payload, type } = updateGravity(1.055);
+    type.should.equal(UPDATE_GRAVITY);
+    payload.gravity.should.equal(1.055);
+  });
+
+  it('should create UPDATE_VOLUME action', function () {
+    const { payload, type } = updateVolume(10.5);
+    type.should.equal(UPDATE_VOLUME);
+    payload.volume.should.equal(10.5);
   });
 });

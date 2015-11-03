@@ -1,4 +1,11 @@
-import { addGrain, deleteGrain, updateEfficiency, updateTargets } from '../actions';
+import {
+  addGrain,
+  deleteGrain,
+  updateEfficiency,
+  updateGravity,
+  updateVolume,
+  updateTargets,
+} from '../actions';
 import compose from 'lodash/function/compose';
 import AdjustableRecipe from '../components/AdjustableRecipe';
 import { connect } from 'react-redux';
@@ -28,6 +35,8 @@ export const App = React.createClass({
                             onAddClick={compose(dispatch, addGrain)}
                             onDeleteClick={compose(dispatch, deleteGrain)}
                             onChangeEfficiency={compose(dispatch, updateEfficiency)}
+                            onChangeGravity={compose(dispatch, updateGravity)}
+                            onChangeVolume={compose(dispatch, updateVolume)}
                             onChangeTargets={compose(dispatch, updateTargets)}/>
         </div>
     );

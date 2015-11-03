@@ -1,3 +1,10 @@
+import {
+  ADD_GRAIN,
+  DELETE_GRAIN,
+  UPDATE_EFFICIENCY,
+  UPDATE_GRAVITY,
+  UPDATE_VOLUME,
+} from '../../actions';
 import AdjustableRecipe from '../../components/AdjustableRecipe';
 import chai from 'chai';
 import {
@@ -68,21 +75,35 @@ describe('Containers', function () {
       const adjustableRecipe = findRenderedComponentWithType(
         recipeApp, AdjustableRecipe);
       adjustableRecipe.props.onAddClick('type2', 9);
-      dispatch.should.be.calledWithMatch({ type: 'ADD_GRAIN' });
+      dispatch.should.be.calledWithMatch({ type: ADD_GRAIN });
     });
 
     it('should call dispatch when onDeleteClick is called', function () {
       const adjustableRecipe = findRenderedComponentWithType(
         recipeApp, AdjustableRecipe);
       adjustableRecipe.props.onDeleteClick(1);
-      dispatch.should.be.calledWithMatch({ type: 'DELETE_GRAIN' });
+      dispatch.should.be.calledWithMatch({ type: DELETE_GRAIN });
     });
 
     it('should call dispatch when onChangeEfficiency is called', function () {
       const adjustableRecipe = findRenderedComponentWithType(
         recipeApp, AdjustableRecipe);
       adjustableRecipe.props.onChangeEfficiency(0.75);
-      dispatch.should.have.been.calledWithMatch({ type: 'UPDATE_EFFICIENCY' });
+      dispatch.should.have.been.calledWithMatch({ type: UPDATE_EFFICIENCY });
+    });
+
+    it('should call dispatch when onChangeGravity is called', function () {
+      const adjustableRecipe = findRenderedComponentWithType(
+        recipeApp, AdjustableRecipe);
+      adjustableRecipe.props.onChangeGravity(1.060);
+      dispatch.should.have.been.calledWithMatch({ type: UPDATE_GRAVITY });
+    });
+
+    it('should call dispatch when onChangeVolume is called', function () {
+      const adjustableRecipe = findRenderedComponentWithType(
+        recipeApp, AdjustableRecipe);
+      adjustableRecipe.props.onChangeVolume(9);
+      dispatch.should.have.been.calledWithMatch({ type: UPDATE_VOLUME });
     });
 
     it('should call dispatch when onChangeTargets is called', function () {
@@ -120,7 +141,6 @@ describe('Containers', function () {
     });
 
 
-    // TODO[sgillespie]: Check targets
     it('connect should map state to grains', function () {
       const adjustableRecipe = findRenderedComponentWithType(
                                  provider, AdjustableRecipe),
@@ -131,7 +151,7 @@ describe('Containers', function () {
       grains[0].weight.should.equal(9);
     });
 
-    it('connect should map state to grains', function () {
+    it('connect should map state to targets', function () {
       const adjustableRecipe = findRenderedComponentWithType(
                                  provider, AdjustableRecipe),
             { targets } = adjustableRecipe.props;

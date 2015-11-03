@@ -1,6 +1,6 @@
 import EfficiencyField from './EfficiencyField';
 import GravityField from './GravityField';
-import { Input, Col, Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import React, { PropTypes } from 'react';
 import VolumeField from './VolumeField';
 

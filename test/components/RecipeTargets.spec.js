@@ -8,7 +8,6 @@ import {
   findRenderedComponentWithType,
   renderIntoDocument,
 } from 'react-addons-test-utils';
-import { simulateChange } from '../test-utils';
 import sinon from 'sinon-chai';
 import 'mocha-sinon';
 import VolumeField from '../../components/VolumeField';
@@ -25,14 +24,12 @@ describe('RecipeTargets', function () {
     volume: 7.65,
   };
 
-  let match,
-      onChangeEfficiency,
+  let onChangeEfficiency,
       onChangeGravity,
       onChangeVolume,
       recipeTargets;
 
   beforeEach(function () {
-    match = this.sinon.match;
     onChangeEfficiency = this.sinon.spy();
     onChangeGravity = this.sinon.spy();
     onChangeVolume = this.sinon.spy();

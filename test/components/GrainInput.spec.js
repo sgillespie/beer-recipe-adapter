@@ -3,6 +3,8 @@ import chai from 'chai';
 import { findDOMNode } from 'react-dom';
 import GrainInput from '../../components/GrainInput';
 import GrainTypeField from '../../components/GrainTypeField';
+import GrainWeightLbsField from '../../components/GrainWeightLbsField';
+import GrainWeightOzField from '../../components/GrainWeightOzField';
 import jsdom from 'mocha-jsdom';
 import React from 'react';
 import {
@@ -35,19 +37,19 @@ describe('GrainInput', function () {
   });
 
   it('should render weight-lbs input', function () {
-    grainInput.refs.weightLbsInput.props.type.should.equal('text');
+    grainInput.refs.weightLbs.should.be.an.instanceOf(GrainWeightLbsField);
   });
 
   it('should render weight-oz input', function () {
-    grainInput.refs.weightOzInput.props.type.should.equal('text');
+    grainInput.refs.weightOz.should.be.an.instanceOf(GrainWeightOzField);
   });
 
   it('should call onAddClick when add clicked', function () {
     const button = scryRenderedComponentsWithType(grainInput, Button)
             .find(b => b.props.onClick);
     simulateChange(grainInput.refs.grainType, 'someType');
-    simulateChange(grainInput.refs.weightLbsInput, 11);
-    simulateChange(grainInput.refs.weightOzInput, 8);
+    simulateChange(grainInput.refs.weightLbs, 11);
+    simulateChange(grainInput.refs.weightOz, 8);
     Simulate.click(findDOMNode(button));
 
     onAddClick.should.have.been.calledWith('someType', 11.5);

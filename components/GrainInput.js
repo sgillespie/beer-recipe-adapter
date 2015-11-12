@@ -1,5 +1,7 @@
-import { Button, Col, Glyphicon, Input, Row } from 'react-bootstrap';
+import { Button, Col, Glyphicon, Row } from 'react-bootstrap';
 import GrainTypeField from './GrainTypeField';
+import GrainWeightLbsField from './GrainWeightLbsField';
+import GrainWeightOzField from './GrainWeightOzField';
 import React, { PropTypes } from 'react';
 
 module.exports = React.createClass({
@@ -9,8 +11,8 @@ module.exports = React.createClass({
 
   onAddClick: function () {
     const grainType = this.refs.grainType.getValue(),
-          inputLbs = this.refs.weightLbsInput.getValue(),
-          inputOz = this.refs.weightOzInput.getValue(),
+          inputLbs = this.refs.weightLbs.getValue(),
+          inputOz = this.refs.weightOz.getValue(),
 
           lbs = parseInt(inputLbs, 10),
           oz = parseInt(inputOz, 10),
@@ -25,20 +27,13 @@ module.exports = React.createClass({
         <form>
           <Row>
             <Col xs={4}>
-              <GrainTypeField type="text"
-                              ref="grainType"/>
+              <GrainTypeField ref="grainType"/>
             </Col>
             <Col xs={2}>
-              <Input type="text"
-                     placeholder="Weight (Lbs)"
-                     ref="weightLbsInput"
-                     addonAfter="lbs"/>
+              <GrainWeightLbsField ref="weightLbs"/>
             </Col>
             <Col xs={2}>
-              <Input type="text"
-                     placeholder="Ounces"
-                     ref="weightOzInput"
-                     addonAfter="oz"/>
+              <GrainWeightOzField ref="weightOz"/>
             </Col>
 
             <Col xs={4}>

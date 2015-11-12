@@ -2,6 +2,7 @@ import { Button } from 'react-bootstrap';
 import chai from 'chai';
 import { findDOMNode } from 'react-dom';
 import GrainInput from '../../components/GrainInput';
+import GrainTypeField from '../../components/GrainTypeField';
 import jsdom from 'mocha-jsdom';
 import React from 'react';
 import {
@@ -30,7 +31,7 @@ describe('GrainInput', function () {
   });
 
   it('should render grain-type input', function () {
-    grainInput.refs.grainTypeInput.props.type.should.equal('text');
+    grainInput.refs.grainType.should.be.an.instanceOf(GrainTypeField);
   });
 
   it('should render weight-lbs input', function () {
@@ -44,7 +45,7 @@ describe('GrainInput', function () {
   it('should call onAddClick when add clicked', function () {
     const button = scryRenderedComponentsWithType(grainInput, Button)
             .find(b => b.props.onClick);
-    simulateChange(grainInput.refs.grainTypeInput, 'someType');
+    simulateChange(grainInput.refs.grainType, 'someType');
     simulateChange(grainInput.refs.weightLbsInput, 11);
     simulateChange(grainInput.refs.weightOzInput, 8);
     Simulate.click(findDOMNode(button));

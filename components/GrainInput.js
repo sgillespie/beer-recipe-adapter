@@ -1,5 +1,6 @@
-import React, { PropTypes } from 'react';
 import { Button, Col, Glyphicon, Input, Row } from 'react-bootstrap';
+import GrainTypeField from './GrainTypeField';
+import React, { PropTypes } from 'react';
 
 module.exports = React.createClass({
   propTypes: {
@@ -7,7 +8,7 @@ module.exports = React.createClass({
   },
 
   onAddClick: function () {
-    const grainType = this.refs.grainTypeInput.getValue(),
+    const grainType = this.refs.grainType.getValue(),
           inputLbs = this.refs.weightLbsInput.getValue(),
           inputOz = this.refs.weightOzInput.getValue(),
 
@@ -24,9 +25,8 @@ module.exports = React.createClass({
         <form>
           <Row>
             <Col xs={4}>
-              <Input type="text"
-                     placeholder="Grain/Malt Type"
-                     ref="grainTypeInput"/>
+              <GrainTypeField type="text"
+                              ref="grainType"/>
             </Col>
             <Col xs={2}>
               <Input type="text"
